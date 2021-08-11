@@ -1,13 +1,24 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class Journal {
 	private int id;
-	private String subject;
+	private Date date;
+	private String title;
 	private String content;
+	private int user;
+	private List<Tag> tags;
 	
-	public Journal(int id, String subject, String content) {
-		
-		
+	public Journal(int id, Date date, String title, String content) {
+		this.setUser(-1);
+		this.id = id;
+		this.setDate(date);
+		this.title = title;
+		this.content = content;
+		this.tags = new ArrayList<Tag>();
 	}
 
 	public int getId() {
@@ -18,12 +29,12 @@ public class Journal {
 		this.id = id;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -32,5 +43,32 @@ public class Journal {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public int getUser() {
+		return user;
+	}
+
+	public void setUser(int user) {
+		this.user = user;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+	
+	public void addTag(Tag tag) {
+		if (tag != null) {
+			// TODO: Make sure the tag doesn't already exist??
+			tags.add(tag);
+		}
 	}
 }
