@@ -18,11 +18,11 @@ public class UserDAO {
 	private static final String DELETE_USER_QUERY = "DELETE FROM USER WHERE password = ?";
 	
 	private final String GET_ALL_USERS_QUERY = "SELECT * FROM user";
-	// private final String GET_USER_BY (I'm not sure where to go here)
+	
 	private Connection connection;
 	
 	public UserDAO() {
-		connection = DBConnection.getConnection();
+		connection = DBConnection.getConnection();  
 	}
 	
 	public List<User> getUsers(Connection connection) throws SQLException {
