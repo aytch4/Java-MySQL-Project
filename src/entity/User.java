@@ -5,9 +5,8 @@ public class User {
 	private String firstname;
 	private String lastname;
 
-	private String address; // leave out?
-	private String username;
-	private String password;
+	// private String username;
+	// private String password;
 
 	private String emailAddress;
 
