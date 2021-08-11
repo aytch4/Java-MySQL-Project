@@ -37,8 +37,17 @@ As a user:
    
    I want to be able to delete reminders so that I can remove them.
    
+   I want to be able to create tags (categories) that can be associated with a journal
+   entry.
+   
+   I want to be able to update tags...
+   
+   I want to be able to delete tags...
+   
 
 When the application loads, prompt to select the user or to create a new user.
+When a user is selected, then display all the journal entries for the user in date descending order.
+When a user is selected, allow for a new journal entry to be created.
 
 
 
