@@ -4,7 +4,7 @@ public class User {
 	private int userId;
 	private String firstname;
 	private String lastname;
-	private String address; --leave out?
+	private String address; // leave out?
 	private String username;
 	private String password;
 	
