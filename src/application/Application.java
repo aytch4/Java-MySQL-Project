@@ -1,5 +1,17 @@
 package application;
 
-public class Application {
+import java.util.List;
 
+import dao.TagDAO;
+import entity.Tag;
+
+public class Application {
+	public static void main(String[] args) {
+
+		TagDAO tagProvider = new TagDAO();
+		List<Tag> tags = tagProvider.all();
+		for(Tag tag : tags) {
+			System.out.printf("Tag: %d, %s\r\n", tag.getId(), tag.getName());
+		}
+	}
 }
