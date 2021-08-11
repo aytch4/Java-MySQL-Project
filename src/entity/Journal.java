@@ -21,6 +21,17 @@ public class Journal {
 		this.tags = new ArrayList<Tag>();
 	}
 
+	
+	public Journal(int id2, Date date2, String title2, String content2, int userById) {
+		this.setUser(-1);
+		this.id = id2;
+		this.setDate(date2);
+		this.title = title2;
+		this.content = content2;
+		this.user = userById;
+	}
+
+
 	public int getId() {
 		return id;
 	}
