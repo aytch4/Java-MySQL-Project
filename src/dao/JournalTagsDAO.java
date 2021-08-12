@@ -41,16 +41,17 @@ public class JournalTagsDAO {
 		while (rs.next()) {
 			journalTags.add(populateJournalTag(rs.getInt(1),rs.getInt(2), rs.getString(3)));
 		}
-		return journalTagTags;
+		return journalTags;
 		
 	}
 	
-	public JournalTags getJournalTagbyId(int id) throws SQLException {
+	public JournalTags getJournalTagbyId(int journalId, int tagId) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_JOURNALTAG_BY_ID_QUERY);
-		ps.setInt(1, id);
+		ps.setInt(1, journalId);
+		ps.setInt(2, tagId);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		return populateJournalTag(rs.getInt(1),rs.getInt(2), rs.getString(3));
+		return populateJournalTag(rs.getInt(1),rs.getInt(2));
 	}
 	
 	public void createNewJournalTag(String journalTagName) throws SQLException {
@@ -65,7 +66,7 @@ public class JournalTagsDAO {
 		ps.executeUpdate();
 	}
 	
-	public void updateJournalTagByTitle(String tag, int id) throws SQLException {
+	public void updateJournalTagById(String tag, int id) throws SQLException {
 	PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_BY_ID_QUERY);
 	ps.setString(1, tag);
 	ps.setInt(2, id);
@@ -85,8 +86,8 @@ public class JournalTagsDAO {
 //		ps.executeUpdate();
 //	}
 	//
-	private JournalTags populateJournalTag(int journalId, int tagId, String tag) throws SQLException {
-		return new JournalTags(jounralId, tagId, tag);
+	private JournalTags populateJournalTags(int journalId, int tagId) throws SQLException {
+		return new JournalTags(journalId, tagId);
 	}
 
 }
