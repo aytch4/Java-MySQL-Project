@@ -36,10 +36,10 @@ public class JournalTagsDAO {
 	
 	public List<JournalTags> getJournalTagTags() throws SQLException {
 		ResultSet rs= connection.prepareStatement(GET_JOURNALTAGS_QUERY).executeQuery();
-		List<JournalTags> journalTagTags = new ArrayList<JournalTags>();
+		List<JournalTags> journalTags = new ArrayList<JournalTags>();
 		
 		while (rs.next()) {
-			journalTags.add(populateJournalTag(rs.getInt(1),rs.getInt(2), rs.getString(3)));
+			journalTags.add(populateJournalTags(rs.getInt(1),rs.getInt(2)));
 		}
 		return journalTags;
 		
@@ -51,7 +51,7 @@ public class JournalTagsDAO {
 		ps.setInt(2, tagId);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		return populateJournalTag(rs.getInt(1),rs.getInt(2));
+		return populateJournalTags(rs.getInt(1),rs.getInt(2));
 	}
 	
 	public void createNewJournalTag(String journalTagName) throws SQLException {
