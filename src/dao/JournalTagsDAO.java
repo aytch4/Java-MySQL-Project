@@ -17,7 +17,7 @@ create table journalTag_tags(
 		  foreign key(tag) references tags(id)
 		);
 */
-
+//
 public class JournalTagsDAO {
 
 	private Connection connection;
@@ -84,7 +84,7 @@ public class JournalTagsDAO {
 //		ps.setInt(2, id);
 //		ps.executeUpdate();
 //	}
-	
+	//
 	private JournalTags populateJournalTag(int journalId, int tagId, String tag) throws SQLException {
 		return new JournalTags(jounralId, tagId, tag);
 	}
