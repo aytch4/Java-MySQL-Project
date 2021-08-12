@@ -43,6 +43,16 @@ private List<String> journalOptions = Arrays.asList(
 
 //When "See all possible Journal Tags" is selected 
 
+private List<String> tagOptions = Arrays.asList(
+		"Display all tags",
+		"Search for tag via name",
+		"Search for tag via tag id",
+		"Create new tag",
+		"Update tag",
+		"Delete tag"
+		);
+
+
 //public void start() {
 //		String selection = "";
 //			
