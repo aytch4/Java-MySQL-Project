@@ -26,6 +26,12 @@ private List<String> loginOptions = Arrays.asList(
 		"Delete a User"
 		);
 
+//
+private List<String> selectUserOptions = Arrays.asList(
+		"Which user are you?"
+		//list all users to be selected 
+		);
+
 //			Once user is selected
 private List<String> userOptions = Arrays.asList(
 		"Make a journal entry",
