@@ -117,13 +117,14 @@ private void selectUser() throws SQLException {
 	}
 
 private void createUser() throws SQLException {
-	System.out.println("Enter your name: ");
+	System.out.println("Enter your first name: ");
 	String firstname = scanner.nextLine();
+	System.out.println("Enter your last name: ");
 	String lastname = scanner.nextLine();
-	String emailAddress = scanner.nextLine();
-	
-	userDAO.createNewUser(0 , firstname, lastname, emailAddress);
-	}
+	System.out.println("Enter your email address: ");
+	String emailaddress = scanner.nextLine();
+	userDAO.createNewUser(firstname, lastname, emailaddress);
+	} // is the int number correct for this part?
 
 private void deleteUser() throws SQLException {
 	System.out.println("Enter user ID for the account you want to remove :");

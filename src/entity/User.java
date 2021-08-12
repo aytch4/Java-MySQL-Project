@@ -47,7 +47,7 @@ public class User {
 		return emailAddress;
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setEmailAddress(String emailaddress) {
+		this.emailAddress = emailaddress;
 	}
 }

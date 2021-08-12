@@ -13,7 +13,7 @@ import entity.User;
 
 public class UserDAO {
 	
-	private static final String CREATE_NEW_USER_QUERY = "INSERT INTO user() VALUES (?)";
+	private final String CREATE_NEW_USER_QUERY = "INSERT INTO user(firstname, lastname, emailaddress) VALUES (?, ?, ?)";
 	private static final String UPDATE_USER_QUERY = "UPDATE user SET emailaddress = ? WHERE userId = ?";
 	private static final String DELETE_USER_QUERY = "DELETE FROM USER WHERE password = ?";
 	
@@ -43,12 +43,11 @@ public class UserDAO {
 		return populateUser(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
 	}
 	
-	public void createNewUser(int id, String firstname, String lastname, String emailaddress) throws SQLException {
+	public void createNewUser(String firstname, String lastname, String emailaddress) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_USER_QUERY);
-		ps.setInt(1, id);
-		ps.setString(2, firstname);
-		ps.setString(3, lastname);
-		ps.setString(4, emailaddress);
+		ps.setString(1, firstname);
+		ps.setString(2, lastname);
+		ps.setString(3, emailaddress);
 		ps.executeUpdate();
 	}
 	
