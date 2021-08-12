@@ -116,4 +116,22 @@ private void selectUser() throws SQLException {
 	System.out.println(" Welcome " + firstname.getFirstname());
 	}
 
+private void createUser() throws SQLException {
+	System.out.println("Enter your name: ");
+	String firstname = scanner.nextLine();
+	String lastname = scanner.nextLine();
+	String emailAddress = scanner.nextLine();
+	
+	userDAO.createNewUser(0 , firstname, lastname, emailAddress);
+	}
+
+private void deleteUser() throws SQLException {
+	System.out.println("Enter user ID for the account you want to remove :");
+	int id = Integer.parseInt(scanner.nextLine());
+	userDAO.deleteUser(id);
+	System.out.println("We're gonna miss you, stay safe out there");
+	}
+
+
+
 }
