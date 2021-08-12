@@ -26,8 +26,9 @@ public class JournalTagsDAO {
 	private final String GET_JOURNALTAG_BY_ID_QUERY = "SELECT * FROM journalTags WHERE id = ?";
 	private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journalTags(title, content, user) VALUES (?,?,?)";
 	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journalTags WHERE id =?";
-	private final String UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY = "UPDATE journalTags SET title = ? WHERE id=?";
-	private final String UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY = "UPDATE journalTags SET content = ? WHERE id=?";
+	private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journalTags SET tag = ? WHERE id=?";
+	//private final String UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY = "UPDATE journalTags SET title = ? WHERE id=?";
+	//private final String UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY = "UPDATE journalTags SET content = ? WHERE id=?";
 	
 	public JournalTagsDAO() {
 		connection = DBConnection.getConnection();
@@ -64,19 +65,25 @@ public class JournalTagsDAO {
 		ps.executeUpdate();
 	}
 	
-	public void updateJournalTagByTitle(String title, int id) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY);
-		ps.setString(1, title);
-		ps.setInt(2, id);
-		ps.executeUpdate();
-	}
-	
-	public void updateJournalTagByContent(String content, int id) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY);
-		ps.setString(1, content);
-		ps.setInt(2, id);
-		ps.executeUpdate();
-	}
+	public void updateJournalTagByTitle(String tag, int id) throws SQLException {
+	PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_BY_ID_QUERY);
+	ps.setString(1, tag);
+	ps.setInt(2, id);
+	ps.executeUpdate();
+}
+//	public void updateJournalTagByTitle(String title, int id) throws SQLException {
+//		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY);
+//		ps.setString(1, title);
+//		ps.setInt(2, id);
+//		ps.executeUpdate();
+//	}
+//	
+//	public void updateJournalTagByContent(String content, int id) throws SQLException {
+//		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY);
+//		ps.setString(1, content);
+//		ps.setInt(2, id);
+//		ps.executeUpdate();
+//	}
 	
 	private JournalTags populateJournalTag(int journalId, int tagId, String tag) throws SQLException {
 		return new JournalTags(jounralId, tagId, tag);
