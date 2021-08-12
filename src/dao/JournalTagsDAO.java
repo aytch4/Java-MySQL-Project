@@ -22,11 +22,11 @@ public class JournalTagsDAO {
 
 	private Connection connection;
 	// private UserDAO userDAO;
-	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM journalTags";
-	private final String GET_JOURNALTAG_BY_ID_QUERY = "SELECT * FROM journalTags WHERE id = ?";
-	private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journalTags(title, content, user) VALUES (?,?,?)";
-	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journalTags WHERE id =?";
-	private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journalTags SET tag = ? WHERE id=?";
+	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM journal_tags";
+	private final String GET_JOURNALTAG_BY_ID_QUERY = "SELECT * FROM journal_tags WHERE id = ?";
+	//private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journal_tags() VALUES (?)";
+	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags WHERE id =?";
+	private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journal_tags SET tag = ? WHERE id=?";
 	//private final String UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY = "UPDATE journalTags SET title = ? WHERE id=?";
 	//private final String UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY = "UPDATE journalTags SET content = ? WHERE id=?";
 	
@@ -54,11 +54,11 @@ public class JournalTagsDAO {
 		return populateJournalTags(rs.getInt(1),rs.getInt(2));
 	}
 	
-	public void createNewJournalTag(String journalTagName) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNALTAG_QUERY);
-		ps.setString(1, journalTagName);
-		ps.executeUpdate();
-	}
+//	public void createNewJournalTag(String journalTagName) throws SQLException {
+//		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNALTAG_QUERY);
+//		ps.setString(1, journalTagName);
+//		ps.executeUpdate();
+//	}
 	
 	public void deleteJournalTagById(int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_ID_QUERY);
