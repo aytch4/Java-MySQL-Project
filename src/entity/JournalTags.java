@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -18,6 +19,11 @@ public class JournalTags {
 	private List<Tag> tags;
 	
 	
+	public JournalTags(int journalId2, int tagId2) {
+		this.journalId = journalId2;
+		this.tagId = tagId2;
+		this.tags = new ArrayList<Tag>();
+	}
 	public int getJournalId() {
 		return journalId;
 	}
@@ -31,7 +37,6 @@ public class JournalTags {
 		this.tagId = tagId;
 	}
 	public List<Tag> getTags() {
-		//
 		return tags;
 	}
 	public void setTags(List<Tag> tags) {
