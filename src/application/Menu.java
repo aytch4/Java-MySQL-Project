@@ -1,5 +1,6 @@
 package application;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -65,13 +66,33 @@ private List<String> tagOptions = Arrays.asList(
 		);
 
 
-//public void start() {
-//		String selection = "";
-//			
-//			do {
-//				
-//			}
-//}
+public void start() {
+		String selection = "";
+			
+			do {
+				printMenu();
+				selection = scanner.nextLine();
+				
+				try {
+					if (selection.equals("1")) {
+						displayloginOption();
+					} else if (selection.equals("2")) {
+						selectloginOption();
+					} else if (selection.equals("3")) {
+						createloginOption();
+					} else if (selection.equals("4")) {
+						deleteloginOption();
+					}
+					
+				} catch (SQLException e){
+					e.printStackTrace();
+				}
+				
+				System.out.println("Press enter to continue");
+				scanner.nextLine();
+			} while (!selection.equals("-1"));
+			System.out.println("Thanks for stopping by!");
+} 
 
 
 //
