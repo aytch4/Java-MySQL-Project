@@ -33,7 +33,6 @@ public class JournalDAO {
 	
 	public JournalDAO() {
 		connection = DBConnection.getConnection();
-		//userDAO = new UserDAO(); 
 	}
 	
 	public List<Journal> getJournals() throws SQLException {
