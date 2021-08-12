@@ -26,7 +26,23 @@ private List<String> loginOptions = Arrays.asList(
 		"Delete a User"
 		);
 
-//	
+//			Once user is selected
+private List<String> userOptions = Arrays.asList(
+		"Make a journal",
+		"Update email address"
+		);
+
+
+
+//public void start() {
+//		String selection = "";
+//			
+//			do {
+//				
+//			}
+//}
+
+
 //
 //   /*
 //    * Tags Menu
