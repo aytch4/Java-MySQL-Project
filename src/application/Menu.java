@@ -28,11 +28,20 @@ private List<String> loginOptions = Arrays.asList(
 
 //			Once user is selected
 private List<String> userOptions = Arrays.asList(
-		"Make a journal",
+		"Make a journal entry",
 		"Update email address"
 		);
 
+//When "make a journal" is selected
+private List<String> journalOptions = Arrays.asList(
+		"Create a Journal Entry",  
+		"Display all Journal Entries",
+		"Update a Journal Entry",
+		"Delete a Journal Entry",
+		"See all possible Journal Tags"
+		);
 
+//When "See all possible Journal Tags" is selected 
 
 //public void start() {
 //		String selection = "";
