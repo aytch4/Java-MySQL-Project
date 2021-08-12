@@ -25,7 +25,7 @@ public class UserDAO {
 		connection = DBConnection.getConnection();  
 	}
 	
-	public List<User> getUsers(Connection connection) throws SQLException {
+	public List<User> getUsers() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_ALL_USERS_QUERY).executeQuery();
 		List<User> User = new ArrayList<User>();
 		

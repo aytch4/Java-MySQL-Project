@@ -10,6 +10,7 @@ import dao.JournalTagsDAO;
 import dao.TagDAO;
 //import dao.RemindersDAO;
 import dao.UserDAO;
+import entity.User;
 
 public class Menu {
 
@@ -96,8 +97,23 @@ public void start() {
 
 private void printLogInMenu() {
 	System.out.println("Select an Option: \n ------------------------------------");
-	for (int i = 0; i < loginOptions.size(); i++) {
-		System.out.println(i + 1 + ") " + loginOptions.get(i));
+		for (int i = 0; i < loginOptions.size(); i++) {
+			System.out.println(i + 1 + ") " + loginOptions.get(i));
+		}
 	}
+
+private void displayAllUsers() throws SQLException {
+	List<User> users = userDAO.getUsers();
+	for (User user : users) {
+		System.out.println(user.getUserId() + ": " + user.getFirstname() + " " + user.getLastname() + ".");
+		} 
 	}
+
+private void selectUser() throws SQLException {
+	System.out.println("Enter your user ID");
+	int id = Integer.parseInt(scanner.nextLine());
+	User firstname = userDAO.getUserById(id);
+	System.out.println(" Welcome " + firstname.getFirstname());
+	}
+
 }
