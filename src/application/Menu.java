@@ -41,6 +41,12 @@ private List<String> journalOptions = Arrays.asList(
 		"See all possible Journal Tags"
 		);
 
+//When they ask to update a journal entry 
+private List<String> journalUpdateOptions = Arrays.asList(
+		"Update a Journal Entry by Title",  
+		"Update a Journal Entry by Content"
+		);
+
 //When "See all possible Journal Tags" is selected 
 
 private List<String> tagOptions = Arrays.asList(
