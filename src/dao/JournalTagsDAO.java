@@ -25,8 +25,8 @@ public class JournalTagsDAO {
 	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM journal_tags";
 	private final String GET_JOURNALTAG_BY_ID_QUERY = "SELECT * FROM journal_tags WHERE id = ?";
 	//private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journal_tags() VALUES (?)";
-	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags WHERE id =?";
-	private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journal_tags SET tag = ? WHERE id=?";
+	//private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags WHERE id =?";
+	//private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journal_tags SET tag = ? WHERE id=?";
 	//private final String UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY = "UPDATE journalTags SET title = ? WHERE id=?";
 	//private final String UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY = "UPDATE journalTags SET content = ? WHERE id=?";
 	
@@ -60,18 +60,18 @@ public class JournalTagsDAO {
 //		ps.executeUpdate();
 //	}
 	
-	public void deleteJournalTagById(int id) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_ID_QUERY);
-		ps.setInt(1, id);
-		ps.executeUpdate();
-	}
-	
-	public void updateJournalTagById(String tag, int id) throws SQLException {
-	PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_BY_ID_QUERY);
-	ps.setString(1, tag);
-	ps.setInt(2, id);
-	ps.executeUpdate();
-}
+//	public void deleteJournalTagById(int id) throws SQLException {
+//		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_ID_QUERY);
+//		ps.setInt(1, id);
+//		ps.executeUpdate();
+//	}
+//	
+//	public void updateJournalTagById(String tag, int id) throws SQLException {
+//	PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_BY_ID_QUERY);
+//	ps.setString(1, tag);
+//	ps.setInt(2, id);
+//	ps.executeUpdate();
+//}
 //	public void updateJournalTagByTitle(String title, int id) throws SQLException {
 //		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY);
 //		ps.setString(1, title);
