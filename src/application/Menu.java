@@ -124,7 +124,7 @@ private void createUser() throws SQLException {
 	System.out.println("Enter your email address: ");
 	String emailaddress = scanner.nextLine();
 	userDAO.createNewUser(firstname, lastname, emailaddress);
-	} // is the int number correct for this part?
+	} 
 
 private void deleteUser() throws SQLException {
 	System.out.println("Enter user ID for the account you want to remove :");
