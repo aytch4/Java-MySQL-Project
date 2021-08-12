@@ -27,11 +27,13 @@ public class TagDAO {
 	 * @throws SQLException 
 	 */
 	public Tag get(int id) throws SQLException {
+		
 		PreparedStatement ps = connection.prepareStatement(GET_TAG_BY_ID_QUERY);
 		ps.setInt(1,  id);
 		ResultSet rs =ps.executeQuery();
 		rs.next();
-		return (null);
+		
+			return (null);
 	}
 
 	/**
