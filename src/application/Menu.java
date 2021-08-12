@@ -31,7 +31,7 @@ private List<String> loginOptions = Arrays.asList(
 private List<String> selectUserOptions = Arrays.asList(
 		"Which user are you?"
 		//list all users to be selected 
-		);
+		); //maybe part of the select options 
 
 //			Once user is selected
 private List<String> userOptions = Arrays.asList(
@@ -70,18 +70,18 @@ public void start() {
 		String selection = "";
 			
 			do {
-				printMenu();
+				printLogInMenu();
 				selection = scanner.nextLine();
 				
 				try {
 					if (selection.equals("1")) {
-						displayloginOption();
+						displayAllUsers();
 					} else if (selection.equals("2")) {
-						selectloginOption();
+						selectUser();
 					} else if (selection.equals("3")) {
-						createloginOption();
+						createUser();
 					} else if (selection.equals("4")) {
-						deleteloginOption();
+						deleteUser();
 					}
 					
 				} catch (SQLException e){
@@ -94,147 +94,10 @@ public void start() {
 			System.out.println("Thanks for stopping by!");
 } 
 
-
-//
-//   /*
-//    * Tags Menu
-//    * 1.) List Tags
-//    * 2.) Delete Tags
-//    * 3.) Create Tag
-//    * 4.) Update Tag 
-
-//    * User Menu
-//    * 1.) List Users
-//    *   Select a user
-//    *    a.) Bob
-//    *    b.) Arlene
-//    * 2.) Create new user
-//    *  
-//    * User selected
-//    * Journal Menu for user
-//    * 1.) List journal
-//    * 2.) Create journal
-//    * 
-//    * When viewing a journal, you can
-//    * delete a journal entry or update fields. 
-//    * 
-//    */
-//	
-//	package application;
-//
-//
-//	import java.sql.SQLException;
-//	import java.util.Arrays;
-//	import java.util.List;
-//	import java.util.Scanner;
-//
-//	import dao.MemberDao;
-//	import dao.TeamDao;
-//	import entity.Member;
-//	import entity.Team;
-//
-//	public class Menu {
-//		
-//		private TeamDao teamDao = new TeamDao();
-//		private MemberDao memberDao = new MemberDao();
-//		private Scanner scanner = new Scanner(System.in);
-//		private List<String> options = Arrays.asList(
-//				"Display Teams", 
-//				"Display a Team", 
-//				"Create a Team", 
-//				"Delete a Team", 
-//				"Create Team Member", 
-//				"Delete Team Member"
-//				);
-//		
-//		public void start() {
-//			String selection = "";
-//			
-//			do {
-//				printMenu();
-//				selection = scanner.nextLine();
-//				try {
-//				if (selection.equals("1")) {
-//					displayTeams();
-//				} else if (selection.equals("2")) {
-//					displayTeam();
-//				} else if (selection.equals("3")) {
-//					createTeam();
-//				} else if (selection.equals("4")) {
-//					deleteTeam();
-//				} else if (selection.equals("5")) {
-//					createMember();
-//				} else if (selection.equals("6")) {
-//					deleteMember();
-//				} 
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//				System.out.println("Please press enter to continue");
-//				scanner.nextLine();
-//			} while (!selection.equals("-1"));
-//		}
-//
-//		private void deleteMember() throws SQLException {
-//			System.out.print("Enter member id to delete:");
-//			int id = Integer.parseInt(scanner.nextLine());
-//			memberDao.deleteMemberById(id);
-//			
-//		}
-//
-//		private void createMember() throws SQLException {
-//			System.out.print("Enter first name of new member:");
-//			String firstName = scanner.nextLine();
-//			System.out.print("Enter last name of new member:");
-//			String lastName = scanner.nextLine();
-//			System.out.print("Enter team id of new member:");
-//			int teamId = Integer.parseInt(scanner.nextLine());
-//			memberDao.createNewMember(firstName, lastName, teamId);
-//		}
-//
-//		private void deleteTeam() throws SQLException {
-//			System.out.print("Enter team id to delete");
-//			int id = Integer.parseInt(scanner.nextLine()); // add id verification :) 
-//			teamDao.deleteTeamById(id);
-//			
-//			
-//		}
-//
-//		private void createTeam() throws SQLException {
-//			System.out.print("Enter new team name:");
-//			String teamName = scanner.nextLine();
-//			teamDao.createNewTeam(teamName);
-//			
-//		}
-//
-//		private void displayTeam() throws SQLException {
-//			System.out.print("Enter team id: ");
-//			int id = Integer.parseInt(scanner.nextLine());
-//			Team team = teamDao.getTeambyId(id);
-//			System.out.println(team.getTeamId() + ": " + team.getName());
-//			for (Member member : team.getMembers()) {
-//				System.out.println("\tMemberId: " + member.getMemberId() + " - Name: " + member.getFirstName()
-//				+" " + member.getLastName());
-//			}
-//			
-//		}
-//
-//		private void displayTeams() throws SQLException {
-//			List<Team> teams = teamDao.getTeams();
-//			for (Team team :  teams) {
-//				System.out.println(team.getTeamId() + ": " + team.getName());
-//			}
-//			
-//		}
-//
-//		private void printMenu() {
-//			System.out.println("Select an Option: \n ------------------------------------");
-//			for (int i = 0; i < options.size(); i++) {
-//				System.out.println(i + 1 + ") " + options.get(i));
-//			}
-//			
-//		}
-//
-//	}
-
+private void printLogInMenu() {
+	System.out.println("Select an Option: \n ------------------------------------");
+	for (int i = 0; i < loginOptions.size(); i++) {
+		System.out.println(i + 1 + ") " + loginOptions.get(i));
+	}
+	}
 }
