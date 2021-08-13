@@ -34,7 +34,7 @@ public class JournalTagsDAO {
 		connection = DBConnection.getConnection();
 	}
 	
-	public List<JournalTags> getJournalTagTags() throws SQLException {
+	public List<JournalTags> getJournalTags() throws SQLException {
 		ResultSet rs= connection.prepareStatement(GET_JOURNALTAGS_QUERY).executeQuery();
 		List<JournalTags> journalTags = new ArrayList<JournalTags>();
 		

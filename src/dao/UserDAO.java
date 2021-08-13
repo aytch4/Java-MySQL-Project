@@ -17,6 +17,7 @@ public class UserDAO {
 	private static final String UPDATE_USER_QUERY = "UPDATE user SET emailaddress = ? WHERE userId = ?";
 	private static final String DELETE_USER_QUERY = "DELETE FROM USER WHERE password = ?";
 	
+	
 	private final String GET_ALL_USERS_QUERY = "SELECT * FROM user";
 	
 	private Connection connection;

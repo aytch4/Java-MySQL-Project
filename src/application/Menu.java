@@ -10,6 +10,7 @@ import dao.JournalTagsDAO;
 import dao.TagDAO;
 //import dao.RemindersDAO;
 import dao.UserDAO;
+import entity.Journal;
 import entity.User;
 
 public class Menu {
@@ -29,24 +30,27 @@ private List<String> loginOptions = Arrays.asList(
 		);
 
 //
-private List<String> selectUserOptions = Arrays.asList(
-		"Which user are you?"
+//private List<String> selectUserOptions = Arrays.asList(
+//		
+//		userDao.getUsers;
+		
 		//list all users to be selected 
-		); //maybe part of the select options 
+		 //maybe part of the select options 
 
 //			Once user is selected
-private List<String> userOptions = Arrays.asList(
-		"Make a journal entry",
-		"Update email address"
-		);
+//private List<String> userOptions = Arrays.asList(
+//		"Make a journal entry",
+//		"Update email address"
+//		);
 
 //When "make a journal" is selected
-private List<String> journalOptions = Arrays.asList(
+private List<String> userOptions = Arrays.asList(
 		"Create a Journal Entry",  
 		"Display all Journal Entries",
 		"Update a Journal Entry",
 		"Delete a Journal Entry",
-		"See all possible Journal Tags"
+		"See all possible Journal Tags",
+		"Update email address"
 		);
 
 //When they ask to update a journal entry 
@@ -87,14 +91,15 @@ public void start() {
 					
 				} catch (SQLException e){
 					e.printStackTrace();
-				}
-				
-				System.out.println("Press enter to continue");
+				};
+				System.out.println("Press enter to continue.");
 				scanner.nextLine();
 			} while (!selection.equals("-1"));
 			System.out.println("Thanks for stopping by!");
-} 
+			
+		}
 
+	
 private void printLogInMenu() {
 	System.out.println("Select an Option: \n ------------------------------------");
 		for (int i = 0; i < loginOptions.size(); i++) {
@@ -105,16 +110,79 @@ private void printLogInMenu() {
 private void displayAllUsers() throws SQLException {
 	List<User> users = userDAO.getUsers();
 	for (User user : users) {
-		System.out.println(user.getUserId() + ": " + user.getFirstname() + " " + user.getLastname() + ".");
+		System.out.println(user.getUserId() + ": " + user.getFirstname() + " " + user.getLastname());
 		} 
 	}
 
 private void selectUser() throws SQLException {
+	displayAllUsers();
 	System.out.println("Enter your user ID");
 	int id = Integer.parseInt(scanner.nextLine());
 	User firstname = userDAO.getUserById(id);
+	System.out.println("------------------------------------");
 	System.out.println(" Welcome " + firstname.getFirstname());
+	System.out.println("------------------------------------");
+	
+	String selection = "";
+	String subselection = "";
+	
+	do {
+		printUserOptionsMenu();
+		scanner = new Scanner(System.in);
+		subselection = scanner.nextLine();
+		
+		try {
+			if (selection.equals("1") ) {
+				System.out.println("What would you like to name your new journal entry \n");
+				String entryName = scanner.nextLine();
+				journalDao.createNewJournal(entryName);			
+			} else if (selection.equals("2") ) {
+				System.out.println("Journal entries \n");
+				displayAllEntries();
+			} else if (selection.equals("3") ) {
+				 //necessary? how are they going to find it?  
+				do {
+					printJournalUpdateOptionsMenu();
+					scanner = new Scanner(System.in);
+					subselection = scanner.nextLine();
+					
+					try {
+						if (subselection.equals("1") ) {
+							System.out.println("Which journal entry would you like to update?");
+							String title = scanner.nextLine();
+							journalDao.updateJournalByTitle(title, id);
+						} else if (subselection.equals("2") ) {
+							System.out.println("Which journal entry would you like to update?");
+							String content = scanner.nextLine();
+							journalDao.updateJournalByContent(content, id);
+						} else if (!(subselection.equals("-1"))) {
+							System.out.println("Invalid Option");
+						}
+					
+					} while (!(subselection.equals("-1")));
+					
+				}
+			} else if (selection.equals("4") ) {
+				System.out.println("Which entry would you like to delete? \n");
+				int idToDelete = Integer.parseInt(scanner.nextLine());
+				journalDao.deleteJournalById(idToDelete);
+			} else if (selection.equals("5") ) {
+				System.out.println("Journal Tags \n");
+				journalTagsDAO.getJournalTags();
+			} else if (selection.equals("6") ) {
+				System.out.println("Enter the new email address:");
+				String emailaddress = scanner.nextLine();
+				userDAO.updateUser(id, emailaddress);
+			
+		} while (!(selection.equals("-1")));
 	}
+
+private void displayAllEntries() throws SQLException {
+	List<Journal> journals = journalDao.getJournals();
+		for (Journal journal : journals) {
+			System.out.println(journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "." + journal.getContent());
+			} 
+		}
 
 private void createUser() throws SQLException {
 	System.out.println("Enter your first name: ");
@@ -133,6 +201,35 @@ private void deleteUser() throws SQLException {
 	System.out.println("We're gonna miss you, stay safe out there");
 	}
 
+private void printUserOptionsMenu() {
+	System.out.println("Select an Option:  \n ------------------------------------");
+	for (int i = 0; i < userOptions.size(); i++) {
+		System.out.println(i + 1 + ") " + userOptions.get(i));
+	}
+}
+	
+	
+//private void printjournalOptionsMenu() {
+//	System.out.println("Select an Option:  \n ------------------------------------");
+//	for (int i = 0; i < userOptions.size(); i++) {
+//		System.out.println(i + 1 + ") " + userOptions.get(i));
+//	}
+//		
+private void printJournalUpdateOptionsMenu() {
+	System.out.println("Select an Option:  \n ------------------------------------");
+	for (int i = 0; i < userOptions.size(); i++) {
+		System.out.println(i + 1 + ") " + userOptions.get(i));
+	}
+}
 
+private void printTagOptionsMenu() {
+	System.out.println("Select an Option:  \n ------------------------------------");
+	for (int i = 0; i < userOptions.size(); i++) {
+		System.out.println(i + 1 + ") " + userOptions.get(i));
+	}
+		}	
 
 }
+
+
+
