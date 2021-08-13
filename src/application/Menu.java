@@ -139,15 +139,19 @@ private void selectUser() throws SQLException {
 			} else if (selection.equals("2") ) {
 				System.out.println("Journal entries \n");
 				displayAllEntries();
-			} else if (selection.equals("3") ) {
-				 //necessary? how are they going to find it?  
+			} else if (selection.equals("3") ) { 
 				do {
 					printJournalUpdateOptionsMenu();
 					scanner = new Scanner(System.in);
 					subselection = scanner.nextLine();
 					
 					try {
-						if (subselection.equals("1") ) {
+						if (selection.equals("1") ) {
+							tagDAO.displayAllTags();
+						}
+							System.out.println("What would you like to name your new journal entry \n");
+							String entryName = scanner.nextLine();
+							journalDao.createNewJournal(entryName);	if (subselection.equals("1") ) {
 							System.out.println("Which journal entry would you like to update?");
 							String title = scanner.nextLine();
 							journalDao.updateJournalByTitle(title, id);
@@ -160,15 +164,39 @@ private void selectUser() throws SQLException {
 						}
 					
 					} while (!(subselection.equals("-1")));
-					
 				}
+				
 			} else if (selection.equals("4") ) {
 				System.out.println("Which entry would you like to delete? \n");
 				int idToDelete = Integer.parseInt(scanner.nextLine());
 				journalDao.deleteJournalById(idToDelete);
 			} else if (selection.equals("5") ) {
 				System.out.println("Journal Tags \n");
-				journalTagsDAO.getJournalTags();
+				do {
+					printTagOptionsMenu();
+					scanner = new Scanner(System.in);
+					subselection = scanner.nextLine();
+					
+					try {
+						if (selection.equals("1") ) {
+							System.out.println("What would you like to name your new journal entry \n");
+							String entryName = scanner.nextLine();
+							journalDao.createNewJournal(entryName);	
+						if (subselection.equals("2") ) {
+							System.out.println("Enter the name of the tag you would like to view: ");
+							String tagName = scanner.nextLine();
+							tagDAO.getTagByName(tagName);
+						} else if (subselection.equals("3") ) {
+							System.out.println("Enter the id of the tag you would like to view: ");
+							int tagId = Integer.parseInt(scanner.nextLine());
+							tagDAO.getTagById(tagId);
+						} else if (!(subselection.equals("-1"))) {
+							System.out.println("Invalid Option");
+						}
+					
+					} while (!(subselection.equals("-1")));
+				
+				
 			} else if (selection.equals("6") ) {
 				System.out.println("Enter the new email address:");
 				String emailaddress = scanner.nextLine();
@@ -195,10 +223,10 @@ private void createUser() throws SQLException {
 	} 
 
 private void deleteUser() throws SQLException {
-	System.out.println("Enter user ID for the account you want to remove :");
+	System.out.println("Enter user ID for the account you want to remove: ");
 	int id = Integer.parseInt(scanner.nextLine());
 	userDAO.deleteUser(id);
-	System.out.println("We're gonna miss you, stay safe out there");
+	System.out.println("We're gonna miss you. Stay safe out there");
 	}
 
 private void printUserOptionsMenu() {
@@ -217,15 +245,15 @@ private void printUserOptionsMenu() {
 //		
 private void printJournalUpdateOptionsMenu() {
 	System.out.println("Select an Option:  \n ------------------------------------");
-	for (int i = 0; i < userOptions.size(); i++) {
-		System.out.println(i + 1 + ") " + userOptions.get(i));
+	for (int i = 0; i < journalUpdateOptions.size(); i++) {
+		System.out.println(i + 1 + ") " + journalUpdateOptions.get(i));
 	}
 }
 
 private void printTagOptionsMenu() {
 	System.out.println("Select an Option:  \n ------------------------------------");
-	for (int i = 0; i < userOptions.size(); i++) {
-		System.out.println(i + 1 + ") " + userOptions.get(i));
+	for (int i = 0; i < tagOptions.size(); i++) {
+		System.out.println(i + 1 + ") " + tagOptions.get(i));
 	}
 		}	
 
