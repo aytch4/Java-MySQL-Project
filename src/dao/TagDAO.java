@@ -132,6 +132,7 @@ public class TagDAO {
 		ps.setInt(1, id);
 		ps.executeUpdate();
 		
+		
 	}
 
 	public void displayAllTags() throws SQLException {
