@@ -16,14 +16,18 @@ import entity.User;
 public class Menu {
 
 	private JournalDAO journalDao = new JournalDAO();
-	private JournalTagsDAO jouralTagsDAO = new JournalTagsDAO();
+	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();// fixed typo
 	private TagDAO tagDAO = new TagDAO();
 	// private RemindersDAO remindersDAO = new RemindersDAO();
 	private UserDAO userDAO = new UserDAO();
 	private Scanner scanner = new Scanner(System.in);
-
-	private List<String> loginOptions = Arrays.asList("Display all Users", "Select a User", "Create a User",
-			"Delete a User");
+	
+private List<String> loginOptions = Arrays.asList(
+		"Display all Users", //works w/o a problem
+		"Select a User", 
+		"Create a User", //works 
+		"Delete a User" // works 
+		);
 
 //
 //private List<String> selectUserOptions = Arrays.asList(
@@ -96,14 +100,19 @@ public class Menu {
 		}
 	}
 
-	private void selectUser() throws SQLException {
-		displayAllUsers();
-		System.out.println("Enter your user ID");
-		int id = Integer.parseInt(scanner.nextLine());
-		User firstname = userDAO.getUserById(id);
-		System.out.println("------------------------------------");
-		System.out.println(" Welcome " + firstname.getFirstname());
-		System.out.println("------------------------------------");
+private void selectUser() throws SQLException {
+	displayAllUsers();
+	System.out.println("Enter your user ID");
+	int id = Integer.parseInt(scanner.nextLine());
+	User firstname = userDAO.getUserById(id);
+	System.out.println("------------------------------------");
+	System.out.println(" Welcome " + firstname.getFirstname());
+	System.out.println("------------------------------------");
+	
+	String selection = "";
+	String subselection = "";
+	do {
+
 		printUserOptionsMenu();
 		userOptionsMenu();
 	}
@@ -189,6 +198,7 @@ public class Menu {
 //							journalDao.updateJournalByContent(id);
 						} else if (!(subselection.equals("-1"))) {
 							System.out.println("Invalid Option");
+//merge issue
 						}
 
 					} while (!(subselection.equals("-1")));
@@ -254,6 +264,32 @@ public class Menu {
 
 	private void displayAllEntries() throws SQLException {
 		List<Journal> journals = journalDao.getJournals();
+    
+    
+    merge issue?
+      	} while (!(subselection.equals("-1"))):
+					
+					}	
+//			} else if (selection.equals("4") ) {
+//				System.out.println("Which entry would you like to delete? \n");
+//				int idToDelete = Integer.parseInt(scanner.nextLine());
+//				journalDao.deleteJournalById(idToDelete);
+//			} else if (selection.equals("5") ) {
+//				System.out.println("Journal Tags \n");
+//				
+//				journalTagsDAO.getJournalTagbyId();
+//			} else if (selection.equals("6") ) {
+//				System.out.println("Enter the new email address:");
+//				String emailaddress = scanner.nextLine();
+//				userDAO.updateUser(id, emailaddress);
+//			
+//		} while (!(selection.equals("-1")));
+	}
+
+
+private void displayAllEntries() throws SQLException {
+	List<Journal> journals = journalDao.getJournals();
+//end
 		for (Journal journal : journals) {
 			System.out.println(
 					journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "." + journal.getContent());
@@ -276,6 +312,7 @@ public class Menu {
 		userDAO.deleteUser(id);
 		System.out.println("We're gonna miss you. Stay safe out there");
 	}
+<//merge issue?
 
 	private void printUserOptionsMenu() {
 		System.out.println("Select an Option:  \n ------------------------------------");
@@ -295,6 +332,24 @@ public class Menu {
 		for (int i = 0; i < journalUpdateOptions.size(); i++) {
 			System.out.println(i + 1 + ") " + journalUpdateOptions.get(i));
 		}
+    
+    
+// }
+	
+	
+// private void printJournalOptionsMenu() {
+// 	System.out.println("Select an Option:  \n ------------------------------------");
+// 	for (int i = 0; i < userOptions.size(); i++) {
+// 		System.out.println(i + 1 + ") " + userOptions.get(i));
+// 	}
+// }
+
+//  private void printJournalUpdateOptionsMenu() {
+// 	System.out.println("Select an Option:  \n ------------------------------------");
+// 	for (int i = 0; i < userOptions.size(); i++) {
+// 		System.out.println(i + 1 + ") " + userOptions.get(i));
+
+
 	}
 
 	private void printTagOptionsMenu() {
@@ -303,5 +358,8 @@ public class Menu {
 			System.out.println(i + 1 + ") " + tagOptions.get(i));
 		}
 	}
+
+ //}
+
 
 }

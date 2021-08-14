@@ -16,10 +16,9 @@ public class UserDAO {
 	private final String CREATE_NEW_USER_QUERY = "INSERT INTO user(firstname, lastname, emailaddress) VALUES (?, ?, ?)";
 	private static final String UPDATE_USER_QUERY = "UPDATE user SET emailaddress = ? WHERE userId = ?";
 	private static final String DELETE_USER_QUERY = "DELETE FROM USER WHERE id = ?";
-	
-	
-	private final String GET_USER_BY_ID_QUERY = "SELECT * FROM user WHERE id = ? ";
+
 	private final String GET_ALL_USERS_QUERY = "SELECT * FROM user";
+	private final String GET_USER_BY_ID_QUERY = "SELECT * FROM user WHERE id = ?";
 	
 	private Connection connection;
 	
@@ -27,6 +26,7 @@ public class UserDAO {
 		connection = DBConnection.getConnection();  
 	}
 	
+	//which works for this :) 
 	public List<User> getUsers() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_ALL_USERS_QUERY).executeQuery();
 		List<User> User = new ArrayList<User>();
@@ -37,6 +37,8 @@ public class UserDAO {
 		return User;
 	}
 
+	//Getting a user by id should mean one but the query has it as select all 
+	// from user
 	public User getUserById(int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_USER_BY_ID_QUERY);
 		ps.setInt(1,  id);
