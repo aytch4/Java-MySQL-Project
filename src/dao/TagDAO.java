@@ -19,6 +19,8 @@ public class TagDAO {
 	private final String GET_ALL_TAGS_QUERY = "SELECT * FROM tags";
 	private final String GET_TAG_BY_ID_QUERY = "SELECT * FROM tags WHERE id = ?";
 	private final String GET_TAG_BY_NAME_QUERY = "SELECT * FROM tags WHERE name = ?";
+	private final String GET_
+	SELECT_ID_from tags
 
 	public TagDAO() {
 		connection = DBConnection.getConnection();
