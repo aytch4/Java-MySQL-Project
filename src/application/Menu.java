@@ -127,14 +127,17 @@ public class Menu {
 					String entryName = scanner.nextLine();
 					System.out.println("Enter journal content: ");
 					String content = scanner.nextLine();
-					System.out.println("Add a tag to this post: ");
-					String journalTag = scanner.nextLine();
+
 					System.out.println("Please confirm your identity by entering your user id.");
 					displayAllUsers();
 					int user = Integer.parseInt(scanner.nextLine());
 					journalDao.createNewJournal(entryName, content, user);
-					journalDao.getJournalId(entryName);
-					JournalTagDAO.createNewJournalTag(journalId, journalTag);
+
+					System.out.println("Add a tag for this post: ");
+					String journalTag = scanner.nextLine();
+//???					
+//tried to figure out how to get the journalID to create the tag link.
+
 					userOptionsMenu();
 
 				} else if (selection.equals("2")) {
