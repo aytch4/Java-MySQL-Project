@@ -82,7 +82,7 @@ public void start() {
 					if (selection.equals("1")) {
 						displayAllUsers();
 					} else if (selection.equals("2")) {
-						//selectUser();
+						selectUser();
 					} else if (selection.equals("3")) {
 						createUser();
 					} else if (selection.equals("4")) {
@@ -125,7 +125,6 @@ private void selectUser() throws SQLException {
 	
 	String selection = "";
 	String subselection = "";
-	
 	do {
 		printUserOptionsMenu();
 		scanner = new Scanner(System.in);
@@ -157,26 +156,26 @@ private void selectUser() throws SQLException {
 							journalDao.updateJournalByContent(content, id);
 						} else if (!(subselection.equals("-1"))) {
 							System.out.println("Invalid Option");
-						}
+						
+					} while (!(subselection.equals("-1"))):
 					
-					} while (!(subselection.equals("-1")));
-					
-				}
-			} else if (selection.equals("4") ) {
-				System.out.println("Which entry would you like to delete? \n");
-				int idToDelete = Integer.parseInt(scanner.nextLine());
-				journalDao.deleteJournalById(idToDelete);
-			} else if (selection.equals("5") ) {
-				System.out.println("Journal Tags \n");
-				
-				journalTagsDAO.getJournalTagbyId();
-			} else if (selection.equals("6") ) {
-				System.out.println("Enter the new email address:");
-				String emailaddress = scanner.nextLine();
-				userDAO.updateUser(id, emailaddress);
-			
-		} while (!(selection.equals("-1")));
+					}	
+//			} else if (selection.equals("4") ) {
+//				System.out.println("Which entry would you like to delete? \n");
+//				int idToDelete = Integer.parseInt(scanner.nextLine());
+//				journalDao.deleteJournalById(idToDelete);
+//			} else if (selection.equals("5") ) {
+//				System.out.println("Journal Tags \n");
+//				
+//				journalTagsDAO.getJournalTagbyId();
+//			} else if (selection.equals("6") ) {
+//				System.out.println("Enter the new email address:");
+//				String emailaddress = scanner.nextLine();
+//				userDAO.updateUser(id, emailaddress);
+//			
+//		} while (!(selection.equals("-1")));
 	}
+
 
 private void displayAllEntries() throws SQLException {
 	List<Journal> journals = journalDao.getJournals();
@@ -223,15 +222,15 @@ private void printJournalOptionsMenu() {
 		System.out.println(i + 1 + ") " + userOptions.get(i));
 	}
 }
-/*
+
 private void printTagOptionsMenu() {
 	System.out.println("Select an Option:  \n ------------------------------------");
 	for (int i = 0; i < userOptions.size(); i++) {
 		System.out.println(i + 1 + ") " + userOptions.get(i));
 	}
-		}	*/
+	}	
 
 }
 
 
-	}
+
