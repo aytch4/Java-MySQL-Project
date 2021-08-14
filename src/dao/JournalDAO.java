@@ -28,8 +28,9 @@ public class JournalDAO {
 	private final String GET_JOURNAL_BY_ID_QUERY = "SELECT * FROM journal WHERE id = ?";
 	private final String CREATE_NEW_JOURNAL_QUERY = "INSERT INTO journal (title, content, user) VALUES (?,?,?)";
 	private final String DELETE_JOURNAL_BY_ID_QUERY = "DELETE FROM journal WHERE id =?";
-	private final String UPDATE_JOURNAL_TITLE_BY_ID_QUERY = "UPDATE journal SET title = ? WHERE id=?";
-	private final String UPDATE_JOURNAL_CONTENT_BY_ID_QUERY = "UPDATE journal SET content = ? WHERE id=?";
+	private final String UPDATE_JOURNAL_BY_ID_QUERY = "UPDATE journal SET title = ?, content = ? WHERE id=?";
+	// private final String UPDATE_JOURNAL_CONTENT_BY_ID_QUERY = "UPDATE journal SET
+	// content = ? WHERE id=?";
 
 	public JournalDAO() {
 		connection = DBConnection.getConnection();
@@ -69,9 +70,11 @@ public class JournalDAO {
 		ps.executeUpdate();
 	}
 
-	public void updateJournalByTitle(String title) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNAL_TITLE_BY_ID_QUERY);
-		ps.setString(1, title);
+	public void updateJournalById(int id, String title, String content) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNAL_BY_ID_QUERY);
+		ps.setInt(1, id);
+		ps.setString(2, title);
+		ps.setString(3, content);
 		ps.executeUpdate();
 	}
 
