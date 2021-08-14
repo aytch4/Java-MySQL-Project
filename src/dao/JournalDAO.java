@@ -24,12 +24,12 @@ public class JournalDAO {
 
 	private Connection connection;
 	// private UserDAO userDAO;
-	private final String GET_JOURNALS_QUERY = "SELECT * FROM journals";
-	private final String GET_JOURNAL_BY_ID_QUERY = "SELECT * FROM journals WHERE id = ?";
-	private final String CREATE_NEW_JOURNAL_QUERY = "INSERT INTO journals(title, content, user) VALUES (?,?,?)";
-	private final String DELETE_JOURNAL_BY_ID_QUERY = "DELETE FROM journals WHERE id =?";
-	private final String UPDATE_JOURNAL_TITLE_BY_ID_QUERY = "UPDATE journals SET title = ? WHERE id=?";
-	private final String UPDATE_JOURNAL_CONTENT_BY_ID_QUERY = "UPDATE journals SET content = ? WHERE id=?";
+	private final String GET_JOURNALS_QUERY = "SELECT * FROM journal";
+	private final String GET_JOURNAL_BY_ID_QUERY = "SELECT * FROM journal WHERE id = ?";
+	private final String CREATE_NEW_JOURNAL_QUERY = "INSERT INTO journal (title, content, user) VALUES (?,?,?)";
+	private final String DELETE_JOURNAL_BY_ID_QUERY = "DELETE FROM journal WHERE id =?";
+	private final String UPDATE_JOURNAL_TITLE_BY_ID_QUERY = "UPDATE journal SET title = ? WHERE id=?";
+	private final String UPDATE_JOURNAL_CONTENT_BY_ID_QUERY = "UPDATE journal SET content = ? WHERE id=?";
 
 	public JournalDAO() {
 		connection = DBConnection.getConnection();
@@ -54,10 +54,12 @@ public class JournalDAO {
 		return populateJournal(rs.getInt(1), rs.getDate(2), rs.getString(3), rs.getString(4), rs.getInt(5));
 	}
 
-	public void createNewJournal(String entryName, String content) throws SQLException {
+///
+	public void createNewJournal(String entryName, String content, int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNAL_QUERY);
 		ps.setString(1, entryName);
 		ps.setString(2, content);
+		ps.setInt(3, id);
 		ps.executeUpdate();
 	}
 
@@ -73,11 +75,11 @@ public class JournalDAO {
 		ps.executeUpdate();
 	}
 
-	public void updateJournalByContent(String content) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNAL_CONTENT_BY_ID_QUERY);
-		ps.setString(1, content);
-		ps.executeUpdate();
-	}
+//	public void updateJournalByContent(String content) throws SQLException {
+//		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNAL_CONTENT_BY_ID_QUERY);
+//		ps.setString(1, content);
+//		ps.executeUpdate();
+//	}
 
 	private Journal populateJournal(int id, Date date, String title, String content, int userId) throws SQLException {
 		return new Journal(id, date, title, content, userId);

@@ -21,13 +21,11 @@ public class Menu {
 	// private RemindersDAO remindersDAO = new RemindersDAO();
 	private UserDAO userDAO = new UserDAO();
 	private Scanner scanner = new Scanner(System.in);
-	
-private List<String> loginOptions = Arrays.asList(
-		"Display all Users", //works w/o a problem
-		"Select a User", 
-		"Create a User", //works 
-		"Delete a User" // works 
-		);
+
+	private List<String> loginOptions = Arrays.asList("Display all Users", // works w/o a problem
+			"Select a User", "Create a User", // works
+			"Delete a User" // works
+	);
 
 //
 //private List<String> selectUserOptions = Arrays.asList(
@@ -45,8 +43,9 @@ private List<String> loginOptions = Arrays.asList(
 
 //When "make a journal" is selected
 	private List<String> userOptions = Arrays.asList("Create a Journal Entry", "Display all Journal Entries",
-			"Update a Journal Entry", "Delete a Journal Entry", "See all possible Journal Tags",
-			"Update email address");
+			"Update a Journal Entry", "Delete a Journal Entry", "See all possible Journal Tags"
+//			,"Update email address"
+	);
 
 //When they ask to update a journal entry 
 	private List<String> journalUpdateOptions = Arrays.asList("Update a Journal Entry by Title",
@@ -100,20 +99,15 @@ private List<String> loginOptions = Arrays.asList(
 		}
 	}
 
-private void selectUser() throws SQLException {
-	displayAllUsers();
-	System.out.println("Enter your user ID");
-	int id = Integer.parseInt(scanner.nextLine());
-	User firstname = userDAO.getUserById(id);
-	System.out.println("------------------------------------");
-	System.out.println(" Welcome " + firstname.getFirstname());
-	System.out.println("------------------------------------");
-	
-	String selection = "";
-	String subselection = "";
-	do {
+	private void selectUser() throws SQLException {
+		displayAllUsers();
+		System.out.println("Enter your user ID");
+		int id = Integer.parseInt(scanner.nextLine());
+		User firstname = userDAO.getUserById(id);
+		System.out.println("------------------------------------");
+		System.out.println(" Welcome " + firstname.getFirstname());
+		System.out.println("------------------------------------");
 
-		printUserOptionsMenu();
 		userOptionsMenu();
 	}
 
@@ -122,7 +116,7 @@ private void selectUser() throws SQLException {
 		String subselection = "";
 
 		do {
-			// printUserOptionsMenu();
+			printUserOptionsMenu();
 			scanner = new Scanner(System.in);
 			selection = scanner.nextLine();
 
@@ -132,7 +126,11 @@ private void selectUser() throws SQLException {
 					String entryName = scanner.nextLine();
 					System.out.println("Enter journal content: ");
 					String content = scanner.nextLine();
-					journalDao.createNewJournal(entryName, content);
+					System.out.println("Please confirm your identity by entering your user id.");
+					displayAllUsers();
+					int user = Integer.parseInt(scanner.nextLine());
+					journalDao.createNewJournal(entryName, content, user);
+					userOptionsMenu();
 
 				} else if (selection.equals("2")) {
 					System.out.println("Journal entries \n");
@@ -140,6 +138,8 @@ private void selectUser() throws SQLException {
 
 					System.out.println("Press enter to continue.");
 					scanner.nextLine();
+					userOptionsMenu();
+
 				} else if (selection.equals("3")) {
 					do {
 						printJournalUpdateOptionsMenu();
@@ -150,10 +150,10 @@ private void selectUser() throws SQLException {
 							System.out.println("Which journal entry would you like to update?");
 							String title = scanner.nextLine();
 							journalDao.updateJournalByTitle(title);
-						} else if (subselection.equals("2")) {
-							System.out.println("Which journal entry would you like to update?");
-							String content = scanner.nextLine();
-							journalDao.updateJournalByContent(content);
+//						} else if (subselection.equals("2")) {
+//							System.out.println("Which journal entry would you like to update?");
+//							String content = scanner.nextLine();
+//							journalDao.updateJournalByContent(content);
 						}
 					} while (!subselection.equals("-1"));
 					System.out.println("Invalid Input");
@@ -187,7 +187,11 @@ private void selectUser() throws SQLException {
 						String entryName = scanner.nextLine();
 						System.out.println("Type the new content: ");
 						String newContent = scanner.nextLine();
-						journalDao.createNewJournal(entryName, newContent);
+						System.out.println("Please confirm your identity by entering your user id.");
+						displayAllUsers();
+						int user = Integer.parseInt(scanner.nextLine());
+						journalDao.createNewJournal(entryName, newContent, user);
+
 						if (subselection.equals("1")) {
 							System.out.println("Which journal entry would you like to update?");
 							String title = scanner.nextLine();
@@ -198,7 +202,7 @@ private void selectUser() throws SQLException {
 //							journalDao.updateJournalByContent(id);
 						} else if (!(subselection.equals("-1"))) {
 							System.out.println("Invalid Option");
-//merge issue
+//merge issue?
 						}
 
 					} while (!(subselection.equals("-1")));
@@ -248,12 +252,12 @@ private void selectUser() throws SQLException {
 						}
 
 					} while (!(subselection.equals("-1")));
-				} else if (selection.equals("6")) {
-					System.out.println("Enter the id of the user whose email address you would like to update:");
-					int id = Integer.parseInt(scanner.nextLine());
-					System.out.println("Enter the new email address: ");
-					String emailaddress = scanner.nextLine();
-					userDAO.updateUser(id, emailaddress);
+//				} else if (selection.equals("6")) {
+//					System.out.println("Enter the id of the user whose email address you would like to update:");
+//					int id = Integer.parseInt(scanner.nextLine());
+//					System.out.println("Enter the new email address: ");
+//					String emailaddress = scanner.nextLine();
+//					userDAO.updateUser(id, emailaddress);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -262,33 +266,32 @@ private void selectUser() throws SQLException {
 
 	}
 
+//	private void displayAllEntries() throws SQLException {
+//		List<Journal> journals = journalDao.getJournals();
+//    
+
+//    merge issue?
+//      	} while (!(subselection.equals("-1"))):
+//					
+//					}	
+////			} else if (selection.equals("4") ) {
+////				System.out.println("Which entry would you like to delete? \n");
+////				int idToDelete = Integer.parseInt(scanner.nextLine());
+////				journalDao.deleteJournalById(idToDelete);
+////			} else if (selection.equals("5") ) {
+////				System.out.println("Journal Tags \n");
+////				
+////				journalTagsDAO.getJournalTagbyId();
+////			} else if (selection.equals("6") ) {
+////				System.out.println("Enter the new email address:");
+////				String emailaddress = scanner.nextLine();
+////				userDAO.updateUser(id, emailaddress);
+////			
+////		} while (!(selection.equals("-1")));
+//	}
+
 	private void displayAllEntries() throws SQLException {
 		List<Journal> journals = journalDao.getJournals();
-    
-    
-    merge issue?
-      	} while (!(subselection.equals("-1"))):
-					
-					}	
-//			} else if (selection.equals("4") ) {
-//				System.out.println("Which entry would you like to delete? \n");
-//				int idToDelete = Integer.parseInt(scanner.nextLine());
-//				journalDao.deleteJournalById(idToDelete);
-//			} else if (selection.equals("5") ) {
-//				System.out.println("Journal Tags \n");
-//				
-//				journalTagsDAO.getJournalTagbyId();
-//			} else if (selection.equals("6") ) {
-//				System.out.println("Enter the new email address:");
-//				String emailaddress = scanner.nextLine();
-//				userDAO.updateUser(id, emailaddress);
-//			
-//		} while (!(selection.equals("-1")));
-	}
-
-
-private void displayAllEntries() throws SQLException {
-	List<Journal> journals = journalDao.getJournals();
 //end
 		for (Journal journal : journals) {
 			System.out.println(
@@ -311,8 +314,7 @@ private void displayAllEntries() throws SQLException {
 		int id = Integer.parseInt(scanner.nextLine());
 		userDAO.deleteUser(id);
 		System.out.println("We're gonna miss you. Stay safe out there");
-	}
-<//merge issue?
+	}// merge issue?
 
 	private void printUserOptionsMenu() {
 		System.out.println("Select an Option:  \n ------------------------------------");
@@ -321,10 +323,11 @@ private void displayAllEntries() throws SQLException {
 		}
 	}
 
-//private void printjournalOptionsMenu() {
-//	System.out.println("Select an Option:  \n ------------------------------------");
-//	for (int i = 0; i < userOptions.size(); i++) {
-//		System.out.println(i + 1 + ") " + userOptions.get(i));
+//	private void printjournalOptionsMenu() {
+//		System.out.println("Select an Option:  \n ------------------------------------");
+//		for (int i = 0; i < userOptions.size(); i++) {
+//			System.out.println(i + 1 + ") " + userOptions.get(i));
+//		}
 //	}
 //		
 	private void printJournalUpdateOptionsMenu() {
@@ -332,25 +335,23 @@ private void displayAllEntries() throws SQLException {
 		for (int i = 0; i < journalUpdateOptions.size(); i++) {
 			System.out.println(i + 1 + ") " + journalUpdateOptions.get(i));
 		}
-    
-    
-// }
-	
-	
-// private void printJournalOptionsMenu() {
-// 	System.out.println("Select an Option:  \n ------------------------------------");
-// 	for (int i = 0; i < userOptions.size(); i++) {
-// 		System.out.println(i + 1 + ") " + userOptions.get(i));
-// 	}
-// }
-
-//  private void printJournalUpdateOptionsMenu() {
-// 	System.out.println("Select an Option:  \n ------------------------------------");
-// 	for (int i = 0; i < userOptions.size(); i++) {
-// 		System.out.println(i + 1 + ") " + userOptions.get(i));
-
 
 	}
+
+//	private void printUserOptionsMenu() {
+//		System.out.println("Select an Option:  \n ------------------------------------");
+//		for (int i = 0; i < userOptions.size(); i++) {
+//			System.out.println(i + 1 + ") " + journalOptionsMenu.get(i));
+//		}
+//	}
+
+//	private void printJournalUpdateOptionsMenu() {
+//		System.out.println("Select an Option:  \n ------------------------------------");
+//		for (int i = 0; i < userOptions.size(); i++) {
+//			System.out.println(i + 1 + ") " + userOptions.get(i));
+//
+//		}
+//	}
 
 	private void printTagOptionsMenu() {
 		System.out.println("Select an Option:  \n ------------------------------------");
@@ -359,7 +360,6 @@ private void displayAllEntries() throws SQLException {
 		}
 	}
 
- //}
-
+	// }
 
 }
