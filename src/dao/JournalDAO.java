@@ -30,9 +30,11 @@ public class JournalDAO {
 	private final String DELETE_JOURNAL_BY_ID_QUERY = "DELETE FROM journal WHERE id =?";
 	private final String UPDATE_JOURNAL_BY_ID_QUERY = "UPDATE journal SET content = ? WHERE id=?";
 	private final String GET_JOURNAL_ID_QUERY = "SELECT id FROM journal WHERE title = ?";
-	private final String GET_JOURNAL_BY_TAG_QUERY = "SELECT * FROM journal INNER JOIN journal_tags on journal_tags.journal
-	// private final String UPDATE_JOURNAL_CONTENT_BY_ID_QUERY = "UPDATE journal SET
-	// content = ? WHERE id=?";
+
+	// presumably we need to make a way to get entries by tag, otherwise what's the
+	// point of having them. Struggling with this part.
+	// private final String GET_JOURNAL_BY_TAG_QUERY = "SELECT * FROM journal INNER
+	// JOIN journal_tags on journal_tags.journal
 
 	public JournalDAO() {
 		connection = DBConnection.getConnection();
