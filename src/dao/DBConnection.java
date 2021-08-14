@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-	
+
 	private final static String URL = "jdbc:mysql://localhost:3306/goaltivity";
 	private final static String USERNAME = "root";
-	private final static String PASSWORD = "Death3the3kid3!";
+	private final static String PASSWORD = "Jinghy6713";
 	private static Connection connection;
 	private static DBConnection instance;
-	
+
 	private DBConnection(Connection connection) {
 		this.connection = connection;
 	}
@@ -25,7 +25,7 @@ public class DBConnection {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return DBConnection.connection;
 	}
