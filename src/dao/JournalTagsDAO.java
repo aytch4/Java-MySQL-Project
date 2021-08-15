@@ -24,7 +24,8 @@ public class JournalTagsDAO {
 	private Connection connection;
 	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM tags";
 	private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM journals WHERE id = ?";
-	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM tags WHERE tagId = ?";
+//	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM tags WHERE tagId = ?";
+	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM journal_tags WHERE journal_tagsId = ?";
 	private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journal_tags(journal, tag) VALUES (?,?)";
 	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags where id = ?";
 

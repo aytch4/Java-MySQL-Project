@@ -8,9 +8,9 @@ import java.util.Scanner;
 import dao.JournalDAO;
 import dao.JournalTagsDAO;
 import dao.TagDAO;
-//import dao.RemindersDAO;
 import dao.UserDAO;
 import entity.Journal;
+import entity.Tag;
 import entity.User;
 
 public class Menu {
@@ -234,7 +234,9 @@ public class Menu {
 							} else if (subselection.equals("2")) {
 								System.out.println("Enter the id of the tag you would like to view: ");
 								int tagId = Integer.parseInt(scanner.nextLine());
-								tagDAO.getTagById(tagId);
+								Tag name = tagDAO.getTagById(tagId);
+								System.out.println(name.getName());
+//								System.out.println(tagId.equals());
 							} else if (subselection.equals("3")) {
 								System.out.println("Enter new tag name: ");
 								String newTag = scanner.nextLine();
@@ -300,7 +302,7 @@ public class Menu {
 //end
 		for (Journal journal : journals) {
 			System.out.println(
-					journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t" + journal.getContent());
+					journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t" + journal.getContent() + "\n\t");
 		}
 	}
 
