@@ -10,20 +10,10 @@ import java.util.List;
 
 import entity.Journal;
 
-/*create table journal (
-		id int auto_increment not null,
-	    date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	    title varchar(256) not null,
-	    content text not null,
-	    user int not null,
-	    primary key (id),
-	    foreign key (user) references user(id)
-	);*/
 
 public class JournalDAO {
 
 	private Connection connection;
-	// private UserDAO userDAO;
 	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();
 	private final String GET_JOURNALS_QUERY = "SELECT * FROM journal";
 	private final String GET_JOURNAL_BY_ID_QUERY = "SELECT * FROM journal WHERE id = ?";

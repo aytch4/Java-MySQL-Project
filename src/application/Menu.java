@@ -18,28 +18,18 @@ public class Menu {
 	private JournalDAO journalDao = new JournalDAO();
 	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();
 	private TagDAO tagDAO = new TagDAO();
-	// private RemindersDAO remindersDAO = new RemindersDAO();
+	
 	private UserDAO userDAO = new UserDAO();
 	private Scanner scanner = new Scanner(System.in);
 
-	private List<String> loginOptions = Arrays.asList("Display all Users", // works w/o a problem
-			"Select a User", "Create a User", // works
-			"Delete a User" // works
+	private List<String> loginOptions = Arrays.asList(
+			"Display all Users", 
+			"Select a User", 
+			"Create a User", 
+			"Delete a User"
 	);
 
-//
-//private List<String> selectUserOptions = Arrays.asList(
-//		
-//		userDao.getUsers;
 
-	// list all users to be selected
-	// maybe part of the select options
-
-//			Once user is selected
-//private List<String> userOptions = Arrays.asList(
-//		"Make a journal entry",
-//		"Update email address"
-//		);
 
 //When "make a journal" is selected
 	private List<String> userOptions = Arrays.asList("Create a Journal Entry", "Display all Journal Entries",
@@ -135,9 +125,7 @@ public class Menu {
 					int journalTagId = Integer.parseInt(scanner.nextLine());
 					journalDao.createNewJournal(entryName, content, journalTagId, userId);
 
-					
-//???					
-//tried to figure out how to get the journalID to create the tag link.
+
 
 					userOptionsMenu();
 

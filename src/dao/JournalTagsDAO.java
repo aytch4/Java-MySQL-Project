@@ -22,7 +22,6 @@ create table journalTag_tags(
 public class JournalTagsDAO {
 
 	private Connection connection;
-	// private UserDAO userDAO;
 	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM tags";
 	private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM journals WHERE id = ?";
 	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM tags WHERE tagId = ?";
@@ -61,14 +60,6 @@ public class JournalTagsDAO {
 		return populateJournalTags(rs.getInt(1), rs.getInt(2));
 	}
 
-//	public JournalTags getJournalTagByTagId(int tagId, int tagId) throws SQLException {
-//		PreparedStatement ps = connection.prepareStatement(GET_JOURNALTAG_BY_JOURNALID_QUERY);
-//		ps.setInt(1, journalId);
-//		ps.setInt(2, tagId);
-//		ResultSet rs = ps.executeQuery();
-//		rs.next();
-//		return populateJournalTags(rs.getInt(1), rs.getInt(2));
-//	}
 
 	public void createNewJournalTag(int journalId, int tagId) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNALTAG_QUERY);
@@ -77,32 +68,6 @@ public class JournalTagsDAO {
 		ps.executeUpdate();
 	}
 
-//	public void deleteJournalTagById(int id) throws SQLException {
-//		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_ID_QUERY);
-//		ps.setInt(1, id);
-//		ps.executeUpdate();
-//	}
-//	
-//	public void updateJournalTagById(String tag, int id) throws SQLException {
-//	PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_BY_ID_QUERY);
-//	ps.setString(1, tag);
-//	ps.setInt(2, id);
-//	ps.executeUpdate();
-//}
-//	public void updateJournalTagByTitle(String title, int id) throws SQLException {
-//		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY);
-//		ps.setString(1, title);
-//		ps.setInt(2, id);
-//		ps.executeUpdate();
-//	}
-//	
-//	public void updateJournalTagByContent(String content, int id) throws SQLException {
-//		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY);
-//		ps.setString(1, content);
-//		ps.setInt(2, id);
-//		ps.executeUpdate();
-//	}
-	//
 	private JournalTags populateJournalTags(int journalTagId, int tagId) {
 		return new JournalTags(journalTagId, tagId);
 	}
