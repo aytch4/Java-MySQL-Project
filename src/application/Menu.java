@@ -16,7 +16,7 @@ import entity.User;
 public class Menu {
 
 	private JournalDAO journalDao = new JournalDAO();
-	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();// fixed typo
+	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();
 	private TagDAO tagDAO = new TagDAO();
 	// private RemindersDAO remindersDAO = new RemindersDAO();
 	private UserDAO userDAO = new UserDAO();
@@ -130,11 +130,12 @@ public class Menu {
 
 					System.out.println("Please confirm your identity by entering your user id.");
 					displayAllUsers();
-					int user = Integer.parseInt(scanner.nextLine());
-					journalDao.createNewJournal(entryName, content, user);
+					int userId = Integer.parseInt(scanner.nextLine());
+					System.out.println("Add a tag id for this post: ");
+					int journalTagId = Integer.parseInt(scanner.nextLine());
+					journalDao.createNewJournal(entryName, content, journalTagId, userId);
 
-					System.out.println("Add a tag for this post: ");
-					String journalTag = scanner.nextLine();
+					
 //???					
 //tried to figure out how to get the journalID to create the tag link.
 
@@ -311,7 +312,7 @@ public class Menu {
 //end
 		for (Journal journal : journals) {
 			System.out.println(
-					journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "." + journal.getContent());
+					journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t" + journal.getContent());
 		}
 	}
 

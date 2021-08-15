@@ -24,7 +24,7 @@ public class UserDAO {
 		connection = DBConnection.getConnection();
 	}
 
-	// which works for this :)
+
 	public List<User> getUsers() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_ALL_USERS_QUERY).executeQuery();
 		List<User> User = new ArrayList<User>();
@@ -35,8 +35,7 @@ public class UserDAO {
 		return User;
 	}
 
-	// Getting a user by id should mean one but the query has it as select all
-	// from user
+
 	public User getUserById(int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_USER_BY_ID_QUERY);
 		ps.setInt(1, id);
