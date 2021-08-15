@@ -10,7 +10,6 @@ import java.util.List;
 
 import entity.Journal;
 
-
 public class JournalDAO {
 
 	private Connection connection;
@@ -21,11 +20,23 @@ public class JournalDAO {
 	private final String DELETE_JOURNAL_BY_ID_QUERY = "DELETE FROM journal WHERE id =?";
 	private final String UPDATE_JOURNAL_BY_ID_QUERY = "UPDATE journal SET content = ? WHERE id=?";
 	private final String GET_JOURNAL_ID_QUERY = "SELECT id FROM journal WHERE title = ?";
-	
-	// presumably we need to make a way to get entries by tag, otherwise what's the
-	// point of having them. Struggling with this part.
-	// private final String GET_JOURNAL_BY_TAG_QUERY = "SELECT * FROM journal INNER
-	// JOIN journal_tags on journal_tags.journal
+	private final String GET_JOURNALENTRIES_BY_TAGID_QUERY = "SELECT * FROM journal INNER JOIN journal_tags ON journal.id = journal_tags.journal WHERE journal_tags.tag = ?"; // ******
+
+	public List<Journal> getJournalEntriesByJournalTag(int tag) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(GET_JOURNALENTRIES_BY_TAGID_QUERY);
+		ps.setInt(1, tag);
+		ResultSet rs = ps.executeQuery();
+
+		// ResultSet rs =
+		// psconnection.prepareStatement(GET_JOURNALENTRIES_BY_TAGID_QUERY).executeQuery();
+		List<Journal> journalsByTag = new ArrayList<Journal>();
+
+		while (rs.next()) {
+			journalsByTag
+					.add(populateJournal(rs.getInt(1), rs.getDate(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
+		}
+		return journalsByTag;
+	}
 
 	public JournalDAO() {
 		connection = DBConnection.getConnection();
@@ -60,31 +71,30 @@ public class JournalDAO {
 		return journalId;
 	}
 
-	public void createNewJournal(String entryName, String content,int journalTagId, int id) throws SQLException {
+	public void createNewJournal(String entryName, String content, int journalTagId, int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNAL_QUERY);
 		ps.setString(1, entryName);
 		ps.setString(2, content);
 		ps.setInt(3, id);
 		ps.executeUpdate();
-		//need to retereive tag id from database 
-		//journalTagsDAO.getJournalTagByJournalId(journalId, journalTagId);
-		journalTagsDAO.createNewJournalTag(journalTagId, readGetJournalId(entryName));
+		// need to retrieve tag id from database
+		// journalTagsDAO.getJournalTagByJournalId(journalId, journalTagId);
+		journalTagsDAO.createNewJournalTag(readGetJournalId(entryName), journalTagId);
 	}
-	
-//	public void createNewJournal(String entryName, String content, int id) throws SQLException {
-//		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNAL_QUERY);
-//		ps.setString(1, entryName);
-//		ps.setString(2, content);
-//
-//		ps.setInt(3, id);
-//		ps.executeUpdate();
-//	}
 
 	public void deleteJournalById(int id) throws SQLException {
+		journalTagsDAO.deleteJournalTagByJournalId(id);
 		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNAL_BY_ID_QUERY);
 		ps.setInt(1, id);
 		ps.executeUpdate();
 	}
+//
+//	public void deleteJournalByUser(int user) throws SQLException {
+//		deleteJournalByUser(user);
+//		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNAL_BY_USER_QUERY);
+//		ps.setInt(1, user);
+//		ps.executeUpdate();
+//	}
 
 	public void updateJournalById(int id, String content) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_JOURNAL_BY_ID_QUERY);

@@ -23,12 +23,16 @@ public class JournalTagsDAO {
 
 	private Connection connection;
 	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM tags";
-	private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM journals WHERE id = ?";
-//	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM tags WHERE tagId = ?";
+	private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM journal_tags WHERE id = ?";
+//	private final String GET_JOURNALENTRIES_BY_TAGID_QUERY = "SELECT * FROM journal WHERE journal_tagsId = ? INNER JOIN journal ON journalId"; //******
 	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM journal_tags WHERE journal_tagsId = ?";
 	private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journal_tags(journal, tag) VALUES (?,?)";
 	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags where id = ?";
+	private final String DELETE_JOURNALTAG_BY_JOURNALID_QUERY = "DELETE FROM journal_tags where journal = ?";
 
+	// private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM
+	// journal INNER JOIN journal_tags ON journal.id = journal_tags.journal WHERE
+	// journal_tags.journal = ?";
 	// journal_tags WHERE id =?";
 	// private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journal_tags SET
 	// tag = ? WHERE id=?";
@@ -52,15 +56,14 @@ public class JournalTagsDAO {
 
 	}
 
-	public JournalTags getJournalTagByJournalId(int journalId, int tagId) throws SQLException {
+	public JournalTags getJournalTagByJournalId(int journalId) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_JOURNALTAG_BY_JOURNALID_QUERY);
 		ps.setInt(1, journalId);
-		ps.setInt(2, tagId);
+
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		return populateJournalTags(rs.getInt(1), rs.getInt(2));
 	}
-
 
 	public void createNewJournalTag(int journalId, int tagId) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_JOURNALTAG_QUERY);
@@ -80,4 +83,10 @@ public class JournalTagsDAO {
 
 	}
 
+	public void deleteJournalTagByJournalId(int journal) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_JOURNALID_QUERY);
+		ps.setInt(1, journal);
+		ps.executeUpdate();
+
+	}
 }

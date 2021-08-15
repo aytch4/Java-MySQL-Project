@@ -32,7 +32,11 @@ create table tags (
 create table journal_tags(
   journal int NOT NULL,
   tag int NOT NULL,
-  primary key(journal, tag),
+  id int NOT NULL auto_increment,
+  primary key(id),
   foreign key(journal) references journal(id),
   foreign key(tag) references tags(id)
 );
+INSERT INTO tags (name) VALUES("Diary"),("Travel"), ("Work"), ("Computer"), ("Photo"), ("Lifestyle"), ("General");
+SELECT * FROM tags;
+Select * from journal_tags;

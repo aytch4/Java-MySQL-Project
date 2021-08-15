@@ -10,6 +10,7 @@ import dao.JournalTagsDAO;
 import dao.TagDAO;
 import dao.UserDAO;
 import entity.Journal;
+import entity.JournalTags;
 import entity.Tag;
 import entity.User;
 
@@ -18,18 +19,12 @@ public class Menu {
 	private JournalDAO journalDao = new JournalDAO();
 	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();
 	private TagDAO tagDAO = new TagDAO();
-	
+
 	private UserDAO userDAO = new UserDAO();
 	private Scanner scanner = new Scanner(System.in);
 
-	private List<String> loginOptions = Arrays.asList(
-			"Display all Users", 
-			"Select a User", 
-			"Create a User", 
-			"Delete a User"
-	);
-
-
+	private List<String> loginOptions = Arrays.asList("Display all Users", "Select a User", "Create a User",
+			"Delete a User");
 
 //When "make a journal" is selected
 	private List<String> userOptions = Arrays.asList("Create a Journal Entry", "Display all Journal Entries",
@@ -45,7 +40,7 @@ public class Menu {
 
 	private List<String> tagOptions = Arrays.asList("Display all tags",
 			// "Search for tag via name",
-			"Search for tag via tag id", "Create new tag", "Update tag", "Delete tag");
+			"Search for Journal Entries via tag", "Create new tag", "Update tag", "Delete tag");
 
 	public void start() {
 		String selection = "";
@@ -72,7 +67,7 @@ public class Menu {
 			System.out.println("Press enter to continue.");
 			scanner.nextLine();
 		} while (!selection.equals("-1"));
-		System.out.println("Thanks for stopping by!");
+		// System.out.println("Thanks for stopping by!");
 
 	}
 
@@ -121,11 +116,11 @@ public class Menu {
 					System.out.println("Please confirm your identity by entering your user id.");
 					displayAllUsers();
 					int userId = Integer.parseInt(scanner.nextLine());
+//maybe fixed and works with journalTags	
+					tagDAO.displayAllTags();
 					System.out.println("Add a tag id for this post: ");
 					int journalTagId = Integer.parseInt(scanner.nextLine());
 					journalDao.createNewJournal(entryName, content, journalTagId, userId);
-
-
 
 					userOptionsMenu();
 
@@ -144,6 +139,7 @@ public class Menu {
 //						subselection = scanner.nextLine();
 //
 //						if (selection.equals("1")) {
+					displayAllEntries();
 					System.out.println("Which journal entry would you like to update?");
 					int id = Integer.parseInt(scanner.nextLine());
 					// journalDao.updateJournalById(id);
@@ -231,12 +227,21 @@ public class Menu {
 //								System.out.println("Enter the name of the tag you would like to view: ");
 //								String tagName = scanner.nextLine();
 //								tagDAO.getTagByName(tagName);
+
+								// HERE//
+
 							} else if (subselection.equals("2")) {
-								System.out.println("Enter the id of the tag you would like to view: ");
+								tagDAO.displayAllTags();
+								System.out.println(
+										"Enter the id of the tag which you would like to view the journal entries from: ");
 								int tagId = Integer.parseInt(scanner.nextLine());
-								Tag name = tagDAO.getTagById(tagId);
-								System.out.println(name.getName());
-//								System.out.println(tagId.equals());
+
+								displayAllJournalsByTag(journalDao.getJournalEntriesByJournalTag(tagId));
+//								System.out.println("Enter the id of the tag you would like to view: ");
+//								int tagId = Integer.parseInt(scanner.nextLine());
+//								Tag name = tagDAO.getTagById(tagId);
+//								System.out.println(name.getName());
+////								System.out.println(tagId.equals());
 							} else if (subselection.equals("3")) {
 								System.out.println("Enter new tag name: ");
 								String newTag = scanner.nextLine();
@@ -297,12 +302,22 @@ public class Menu {
 ////		} while (!(selection.equals("-1")));
 //	}
 
+	private void displayAllJournalsByTag(List<Journal> journals) {
+		for (Journal journal : journals) {
+			System.out.println(journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t"
+					+ journal.getContent() + "\n\t");
+		}
+	}
+
 	private void displayAllEntries() throws SQLException {
 		List<Journal> journals = journalDao.getJournals();
 //end
 		for (Journal journal : journals) {
-			System.out.println(
-					journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t" + journal.getContent() + "\n\t");
+			System.out.println(journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t"
+					+ journal.getContent() + "\t");
+			JournalTags journalTag = journalTagsDAO.getJournalTagByJournalId(journal.getId());
+			Tag tag = tagDAO.getTagById(journalTag.getTagId());
+			System.out.println("\t TAG: " + tag.getId() + ": " + tag.getName() + "\n");
 		}
 	}
 
@@ -317,10 +332,14 @@ public class Menu {
 	}
 
 	private void deleteUser() throws SQLException {
-		System.out.println("Enter user ID for the account you want to remove: ");
+
+		System.out.println(
+				"Please delete all journal entries before attempting to delete a user. Enter -1 to go back if needed. \n Enter user ID for the account you want to remove: ");
+		displayAllUsers();
 		int id = Integer.parseInt(scanner.nextLine());
+//		journalDao.deleteJournalByUser(id);
 		userDAO.deleteUser(id);
-		System.out.println("We're gonna miss you. Stay safe out there");
+		// System.out.println("Press enter to continue");
 	}// merge issue?
 
 	private void printUserOptionsMenu() {

@@ -24,7 +24,6 @@ public class UserDAO {
 		connection = DBConnection.getConnection();
 	}
 
-
 	public List<User> getUsers() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_ALL_USERS_QUERY).executeQuery();
 		List<User> User = new ArrayList<User>();
@@ -34,7 +33,6 @@ public class UserDAO {
 		}
 		return User;
 	}
-
 
 	public User getUserById(int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_USER_BY_ID_QUERY);
@@ -68,4 +66,5 @@ public class UserDAO {
 	private User populateUser(int id, String firstname, String lastname, String emailaddress) throws SQLException {
 		return new User(id, firstname, lastname, emailaddress);
 	}
+
 }
