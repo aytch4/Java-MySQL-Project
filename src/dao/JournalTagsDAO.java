@@ -29,6 +29,7 @@ public class JournalTagsDAO {
 	private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journal_tags(journal, tag) VALUES (?,?)";
 	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags where id = ?";
 	private final String DELETE_JOURNALTAG_BY_JOURNALID_QUERY = "DELETE FROM journal_tags where journal = ?";
+//	private final String DELETE_JOURNALTAG_BY_USER_QUERY = "DELETE FROM journal_tags INNER JOIN journal on journal_tags.journal = journal.id where journal.user = ?";
 
 	// private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM
 	// journal INNER JOIN journal_tags ON journal.id = journal_tags.journal WHERE
@@ -89,4 +90,10 @@ public class JournalTagsDAO {
 		ps.executeUpdate();
 
 	}
+
+//	public void deleteJournalTagByUser(int user) throws SQLException {
+//		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_USER_QUERY);
+//		ps.setInt(1, user);
+//		ps.executeUpdate();
+
 }

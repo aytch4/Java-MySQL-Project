@@ -33,8 +33,8 @@ public class Menu {
 	);
 
 //When they ask to update a journal entry 
-	private List<String> journalUpdateOptions = Arrays.asList("Update a Journal Entry by Title",
-			"Update a Journal Entry by Content");
+//	private List<String> journalUpdateOptions = Arrays.asList("Update a Journal Entry by Title",
+//			"Update a Journal Entry by Content");
 
 //When "See all possible Journal Tags" is selected 
 
@@ -61,11 +61,11 @@ public class Menu {
 				}
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("Invalid input.  Enter a valid user id.");
 			}
 			;
-			System.out.println("Press enter to continue.");
-			scanner.nextLine();
+//			System.out.println("Press enter to continue.");
+//			scanner.nextLine();
 		} while (!selection.equals("-1"));
 		// System.out.println("Thanks for stopping by!");
 
@@ -133,29 +133,14 @@ public class Menu {
 					userOptionsMenu();
 
 				} else if (selection.equals("3")) {
-//					do {
-//						printJournalUpdateOptionsMenu();
-//						scanner = new Scanner(System.in);
-//						subselection = scanner.nextLine();
-//
-//						if (selection.equals("1")) {
+//					
 					displayAllEntries();
 					System.out.println("Which journal entry would you like to update?");
 					int id = Integer.parseInt(scanner.nextLine());
-					// journalDao.updateJournalById(id);
-//					System.out.println("Enter the new title: ");
-//					String newTitle = scanner.nextLine();
+
 					System.out.println("Enter the new content: ");
 					String newContent = scanner.nextLine();
 					journalDao.updateJournalById(id, newContent);
-
-//						} else if (subselection.equals("2")) {
-//							System.out.println("Which journal entry would you like to update?");
-//							String content = scanner.nextLine();
-//							journalDao.updateJournalByContent(content);
-
-//					} while (!subselection.equals("-1"));
-//					System.out.println("Invalid Input");
 
 				} else if (selection.equals("4")) {
 					displayAllEntries();
@@ -163,55 +148,14 @@ public class Menu {
 					System.out.println("Enter the id of the entry you would like to delete: ");
 					int id = Integer.parseInt(scanner.nextLine());
 					journalDao.deleteJournalById(id);
-//				} else {
-//					System.out.println("Invalid input");
-//				}
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//			while (!selection.equals("-1"))
-//				;
-//
-//			System.out.println("Thanks for stopping by!");
-
-//			try {
-//				if (selection.equals("1")) {
-//					tagDAO.displayAllTags();
-//				} else if (selection.equals("3")) {
-//					do {
-//						printJournalUpdateOptionsMenu();
-//						scanner = new Scanner(System.in);
-//						subselection = scanner.nextLine();
-//						System.out.println("What would you like to name your new journal entry \n");
-//						String entryName = scanner.nextLine();
-//						System.out.println("Type the new content: ");
-//						String newContent = scanner.nextLine();
-//						System.out.println("Please confirm your identity by entering your user id.");
-//						displayAllUsers();
-//						int user = Integer.parseInt(scanner.nextLine());
-//						journalDao.createNewJournal(entryName, newContent, user);
-//					}
-//						if (subselection.equals("1")) {
-//							System.out.println("Which journal entry would you like to update?");
-//							displayAllEntries()
-//							String title = scanner.nextLine();
-//							journalDao.updateJournalById(title);
-//						} else if (subselection.equals("2")) {
-//							System.out.println("Enter the title of the journal entry would you like to update?");
-//							String title = scanner.nextLine();
-//							journalDao.updateJournalByContent(id);
-//						} else if (!(subselection.equals("-1"))) {
-//							System.out.println("Invalid Option");
-////merge issue?
-//						
-//
-//					} while (!(subselection.equals("-1")));
+//				
 
 				} else if (selection.equals("4")) {
 					System.out.println("Which entry would you like to delete? \n");
 					int idToDelete = Integer.parseInt(scanner.nextLine());
 					journalDao.deleteJournalById(idToDelete);
 					printTagOptionsMenu();
+
 				} else if (selection.equals("5")) {
 					System.out.println("Journal Tags \n");
 					do {
@@ -223,13 +167,6 @@ public class Menu {
 							if (subselection.equals("1")) {
 								tagDAO.displayAllTags();
 
-//							} else if (subselection.equals("2")) {
-//								System.out.println("Enter the name of the tag you would like to view: ");
-//								String tagName = scanner.nextLine();
-//								tagDAO.getTagByName(tagName);
-
-								// HERE//
-
 							} else if (subselection.equals("2")) {
 								tagDAO.displayAllTags();
 								System.out.println(
@@ -237,11 +174,7 @@ public class Menu {
 								int tagId = Integer.parseInt(scanner.nextLine());
 
 								displayAllJournalsByTag(journalDao.getJournalEntriesByJournalTag(tagId));
-//								System.out.println("Enter the id of the tag you would like to view: ");
-//								int tagId = Integer.parseInt(scanner.nextLine());
-//								Tag name = tagDAO.getTagById(tagId);
-//								System.out.println(name.getName());
-////								System.out.println(tagId.equals());
+
 							} else if (subselection.equals("3")) {
 								System.out.println("Enter new tag name: ");
 								String newTag = scanner.nextLine();
@@ -256,51 +189,20 @@ public class Menu {
 								System.out.println("Enter the id of the tag you would like to remove: ");
 								int idOfTagToRemove = Integer.parseInt(scanner.nextLine());
 								tagDAO.deleteTag(idOfTagToRemove);
-							} else if (!(subselection.equals("-1"))) {
-								System.out.println("Invalid Option");
+
 							}
 						} catch (SQLException e) {
-							e.printStackTrace();
+							System.out.println("Invalid input.  Enter a valid selection.");
 						}
 
 					} while (!(subselection.equals("-1")));
-//				} else if (selection.equals("6")) {
-//					System.out.println("Enter the id of the user whose email address you would like to update:");
-//					int id = Integer.parseInt(scanner.nextLine());
-//					System.out.println("Enter the new email address: ");
-//					String emailaddress = scanner.nextLine();
-//					userDAO.updateUser(id, emailaddress);
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("Invalid input.  Enter a valid selection.");
 			}
 		} while (!selection.equals("-1"));
 
 	}
-
-//	private void displayAllEntries() throws SQLException {
-//		List<Journal> journals = journalDao.getJournals();
-//    
-
-//    merge issue?
-//      	} while (!(subselection.equals("-1"))):
-//					
-//					}	
-////			} else if (selection.equals("4") ) {
-////				System.out.println("Which entry would you like to delete? \n");
-////				int idToDelete = Integer.parseInt(scanner.nextLine());
-////				journalDao.deleteJournalById(idToDelete);
-////			} else if (selection.equals("5") ) {
-////				System.out.println("Journal Tags \n");
-////				
-////				journalTagsDAO.getJournalTagbyId();
-////			} else if (selection.equals("6") ) {
-////				System.out.println("Enter the new email address:");
-////				String emailaddress = scanner.nextLine();
-////				userDAO.updateUser(id, emailaddress);
-////			
-////		} while (!(selection.equals("-1")));
-//	}
 
 	private void displayAllJournalsByTag(List<Journal> journals) {
 		for (Journal journal : journals) {
@@ -310,11 +212,14 @@ public class Menu {
 	}
 
 	private void displayAllEntries() throws SQLException {
-		List<Journal> journals = journalDao.getJournals();
-//end
+		displayAllUsers();
+		System.out.println("Please enter your id to confirm your identity: ");
+		int user = Integer.parseInt(scanner.nextLine());
+		List<Journal> journals = journalDao.getJournalsByUser(user);
+
 		for (Journal journal : journals) {
-			System.out.println(journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t"
-					+ journal.getContent() + "\t");
+			System.out.println("ID: " + journal.getId() + " - " + journal.getDate() + " - Title: " + journal.getTitle()
+					+ "\n\t Content: " + journal.getContent() + "\t");
 			JournalTags journalTag = journalTagsDAO.getJournalTagByJournalId(journal.getId());
 			Tag tag = tagDAO.getTagById(journalTag.getTagId());
 			System.out.println("\t TAG: " + tag.getId() + ": " + tag.getName() + "\n");
@@ -329,15 +234,19 @@ public class Menu {
 		System.out.println("Enter your email address: ");
 		String emailaddress = scanner.nextLine();
 		userDAO.createNewUser(firstname, lastname, emailaddress);
+		userOptionsMenu();
 	}
 
+//YAY! Figured out how to delete user with its children in one function
 	private void deleteUser() throws SQLException {
-
 		System.out.println(
-				"Please delete all journal entries before attempting to delete a user. Enter -1 to go back if needed. \n Enter user ID for the account you want to remove: ");
+				"Press enter to confirm that you would like to delete a user and all journal entries.  Press -1 to go back.");
+		scanner.nextLine();
+		System.out.println("Enter user ID for the account you want to remove: ");
 		displayAllUsers();
 		int id = Integer.parseInt(scanner.nextLine());
-//		journalDao.deleteJournalByUser(id);
+
+		journalDao.deleteJournalByUser(id);
 		userDAO.deleteUser(id);
 		// System.out.println("Press enter to continue");
 	}// merge issue?
@@ -349,36 +258,6 @@ public class Menu {
 		}
 	}
 
-//	private void printjournalOptionsMenu() {
-//		System.out.println("Select an Option:  \n ------------------------------------");
-//		for (int i = 0; i < userOptions.size(); i++) {
-//			System.out.println(i + 1 + ") " + userOptions.get(i));
-//		}
-//	}
-//		
-//	private void printJournalUpdateOptionsMenu() {
-//		System.out.println("Select an Option:  \n ------------------------------------");
-//		for (int i = 0; i < journalUpdateOptions.size(); i++) {
-//			System.out.println(i + 1 + ") " + journalUpdateOptions.get(i));
-//		}
-//
-//	}
-
-//	private void printUserOptionsMenu() {
-//		System.out.println("Select an Option:  \n ------------------------------------");
-//		for (int i = 0; i < userOptions.size(); i++) {
-//			System.out.println(i + 1 + ") " + journalOptionsMenu.get(i));
-//		}
-//	}
-
-//	private void printJournalUpdateOptionsMenu() {
-//		System.out.println("Select an Option:  \n ------------------------------------");
-//		for (int i = 0; i < userOptions.size(); i++) {
-//			System.out.println(i + 1 + ") " + userOptions.get(i));
-//
-//		}
-//	}
-
 	private void printTagOptionsMenu() {
 		System.out.println("Select an Option:  \n ------------------------------------");
 		for (int i = 0; i < tagOptions.size(); i++) {
@@ -386,6 +265,11 @@ public class Menu {
 		}
 	}
 
-	// }
+	// MESSING
+//	public void deleteJournalTagsByUser(int user) {
+//		System.out.println("Please enter your id to confirm your identity: ");
+//		int userId = Integer.parseInt(scanner.nextLine());
 
 }
+
+// }
