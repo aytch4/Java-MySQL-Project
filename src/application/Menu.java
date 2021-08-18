@@ -26,22 +26,14 @@ public class Menu {
 	private List<String> loginOptions = Arrays.asList("Display all Users", "Select a User", "Create a User",
 			"Delete a User");
 
-//When "make a journal" is selected
+//Options for user
 	private List<String> userOptions = Arrays.asList("Create a Journal Entry", "Display all Journal Entries",
-			"Update a Journal Entry", "Delete a Journal Entry", "View journal tag options"
-//			,"Update email address"
-	);
+			"Update a Journal Entry", "Delete a Journal Entry", "View journal tag options");
 
-//When they ask to update a journal entry 
-//	private List<String> journalUpdateOptions = Arrays.asList("Update a Journal Entry by Title",
-//			"Update a Journal Entry by Content");
+	private List<String> tagOptions = Arrays.asList("Display all tags", "Search for Journal Entries via tag",
+			"Create new tag", "Update tag", "Delete tag");
 
-//When "See all possible Journal Tags" is selected 
-
-	private List<String> tagOptions = Arrays.asList("Display all tags",
-			// "Search for tag via name",
-			"Search for Journal Entries via tag", "Create new tag", "Update tag", "Delete tag");
-
+//starts and login menu
 	public void start() {
 		String selection = "";
 
@@ -97,6 +89,7 @@ public class Menu {
 		userOptionsMenu();
 	}
 
+//prints user options menu and completes actions
 	private void userOptionsMenu() {
 		String selection = "";
 		String subselection = "";
@@ -107,16 +100,16 @@ public class Menu {
 			selection = scanner.nextLine();
 
 			try {
+//Option 1 -create an entry
 				if (selection.equals("1")) {
 					System.out.println("What would you like to name your new journal entry \n");
 					String entryName = scanner.nextLine();
 					System.out.println("Enter journal content: ");
 					String content = scanner.nextLine();
-
+//we didn't know how to have it automatically choose the user you are logged in as so we made this work around
 					System.out.println("Please confirm your identity by entering your user id.");
 					displayAllUsers();
 					int userId = Integer.parseInt(scanner.nextLine());
-//maybe fixed and works with journalTags	
 					tagDAO.displayAllTags();
 					System.out.println("Add a tag id for this post: ");
 					int journalTagId = Integer.parseInt(scanner.nextLine());
@@ -124,6 +117,7 @@ public class Menu {
 
 					userOptionsMenu();
 
+//Option 2 - Display all entries
 				} else if (selection.equals("2")) {
 					System.out.println("Journal entries \n");
 					displayAllEntries();
@@ -132,6 +126,7 @@ public class Menu {
 					scanner.nextLine();
 					userOptionsMenu();
 
+//Option 3 - Update journal entry
 				} else if (selection.equals("3")) {
 //					
 					displayAllEntries();
@@ -142,20 +137,15 @@ public class Menu {
 					String newContent = scanner.nextLine();
 					journalDao.updateJournalById(id, newContent);
 
+//Option 4 - Delete an entry
 				} else if (selection.equals("4")) {
 					displayAllEntries();
 
 					System.out.println("Enter the id of the entry you would like to delete: ");
 					int id = Integer.parseInt(scanner.nextLine());
 					journalDao.deleteJournalById(id);
-//				
 
-				} else if (selection.equals("4")) {
-					System.out.println("Which entry would you like to delete? \n");
-					int idToDelete = Integer.parseInt(scanner.nextLine());
-					journalDao.deleteJournalById(idToDelete);
-					printTagOptionsMenu();
-
+//Option 5 - Tags menu
 				} else if (selection.equals("5")) {
 					System.out.println("Journal Tags \n");
 					do {
@@ -164,9 +154,11 @@ public class Menu {
 						subselection = scanner.nextLine();
 
 						try {
+							// Option 1 - display all tags
 							if (subselection.equals("1")) {
 								tagDAO.displayAllTags();
 
+								// Option 2 - Search entries by tag
 							} else if (subselection.equals("2")) {
 								tagDAO.displayAllTags();
 								System.out.println(
@@ -174,17 +166,21 @@ public class Menu {
 								int tagId = Integer.parseInt(scanner.nextLine());
 
 								displayAllJournalsByTag(journalDao.getJournalEntriesByJournalTag(tagId));
-
+								// Option 3 - Create new tag
 							} else if (subselection.equals("3")) {
 								System.out.println("Enter new tag name: ");
 								String newTag = scanner.nextLine();
 								tagDAO.createNewTag(newTag);
+
+								// Option 4 - Update/change tag
 							} else if (subselection.equals("4")) {
 								System.out.println("Enter the id of the tag you would like to update: ");
 								int idOfTagToUpdate = Integer.parseInt(scanner.nextLine());
 								System.out.println("Enter the new tag: ");
 								String updatedTag = scanner.nextLine();
 								tagDAO.updateTagById(idOfTagToUpdate, updatedTag);
+
+								// Option 5 - Remove tag
 							} else if (subselection.equals("5")) {
 								System.out.println("Enter the id of the tag you would like to remove: ");
 								int idOfTagToRemove = Integer.parseInt(scanner.nextLine());
@@ -204,13 +200,15 @@ public class Menu {
 
 	}
 
+//displays journal entries by tag, tidied up display
 	private void displayAllJournalsByTag(List<Journal> journals) {
 		for (Journal journal : journals) {
-			System.out.println(journal.getId() + ": " + journal.getDate() + " " + journal.getTitle() + "\n\t"
-					+ journal.getContent() + "\n\t");
+			System.out.println("ID: " + journal.getId() + " - " + journal.getDate() + " - Title: " + journal.getTitle()
+					+ "\n\t Content: " + journal.getContent() + "\t");
 		}
 	}
 
+//Fixed so it displays only 1 users entries, not all, added display of tags too, tidied up display
 	private void displayAllEntries() throws SQLException {
 		displayAllUsers();
 		System.out.println("Please enter your id to confirm your identity: ");
@@ -226,6 +224,7 @@ public class Menu {
 		}
 	}
 
+//Creates and welcomes new user
 	private void createUser() throws SQLException {
 		System.out.println("Enter your first name: ");
 		String firstname = scanner.nextLine();
@@ -234,10 +233,13 @@ public class Menu {
 		System.out.println("Enter your email address: ");
 		String emailaddress = scanner.nextLine();
 		userDAO.createNewUser(firstname, lastname, emailaddress);
+		System.out.println("------------------------------------");
+		System.out.println(" Welcome " + firstname);
+		System.out.println("------------------------------------");
 		userOptionsMenu();
 	}
 
-//YAY! Figured out how to delete user with its children in one function
+//YAY!!! Figured out how to delete user with its children in one function
 	private void deleteUser() throws SQLException {
 		System.out.println(
 				"Press enter to confirm that you would like to delete a user and all journal entries.  Press -1 to go back.");
@@ -245,11 +247,10 @@ public class Menu {
 		System.out.println("Enter user ID for the account you want to remove: ");
 		displayAllUsers();
 		int id = Integer.parseInt(scanner.nextLine());
-
 		journalDao.deleteJournalByUser(id);
 		userDAO.deleteUser(id);
 		// System.out.println("Press enter to continue");
-	}// merge issue?
+	}
 
 	private void printUserOptionsMenu() {
 		System.out.println("Select an Option:  \n ------------------------------------");
@@ -264,12 +265,4 @@ public class Menu {
 			System.out.println(i + 1 + ") " + tagOptions.get(i));
 		}
 	}
-
-	// MESSING
-//	public void deleteJournalTagsByUser(int user) {
-//		System.out.println("Please enter your id to confirm your identity: ");
-//		int userId = Integer.parseInt(scanner.nextLine());
-
 }
-
-// }
