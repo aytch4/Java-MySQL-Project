@@ -9,38 +9,15 @@ import java.util.List;
 
 import entity.JournalTags;
 
-/*
-create table journalTag_tags(
-		  journalTag int NOT NULL,
-		  tag int NOT NULL,
-		  primary key(journalTag, tag),
-	private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM tags WHERE journalId = ?";	  foreign key(journalTag) references journalTag(id),
-		  foreign key(tag) references tags(id)
-		);
-*/
-//
 public class JournalTagsDAO {
 
 	private Connection connection;
 	private final String GET_JOURNALTAGS_QUERY = "SELECT * FROM tags";
 	private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM journal_tags WHERE id = ?";
-//	private final String GET_JOURNALENTRIES_BY_TAGID_QUERY = "SELECT * FROM journal WHERE journal_tagsId = ? INNER JOIN journal ON journalId"; //******
-	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM journal_tags WHERE journal_tagsId = ?";
+//	private final String GET_JOURNALTAG_BY_TAGID_QUERY = "SELECT * FROM journal_tags WHERE journal_tagsId = ?";
 	private final String CREATE_NEW_JOURNALTAG_QUERY = "INSERT INTO journal_tags(journal, tag) VALUES (?,?)";
 	private final String DELETE_JOURNALTAG_BY_ID_QUERY = "DELETE FROM journal_tags where id = ?";
 	private final String DELETE_JOURNALTAG_BY_JOURNALID_QUERY = "DELETE FROM journal_tags where journal = ?";
-//	private final String DELETE_JOURNALTAG_BY_USER_QUERY = "DELETE FROM journal_tags INNER JOIN journal on journal_tags.journal = journal.id where journal.user = ?";
-
-	// private final String GET_JOURNALTAG_BY_JOURNALID_QUERY = "SELECT * FROM
-	// journal INNER JOIN journal_tags ON journal.id = journal_tags.journal WHERE
-	// journal_tags.journal = ?";
-	// journal_tags WHERE id =?";
-	// private final String UPDATE_JOURNALTAG_BY_ID_QUERY = "UPDATE journal_tags SET
-	// tag = ? WHERE id=?";
-	// private final String UPDATE_JOURNALTAG_TITLE_BY_ID_QUERY = "UPDATE
-	// journalTags SET title = ? WHERE id=?";
-	// private final String UPDATE_JOURNALTAG_CONTENT_BY_ID_QUERY = "UPDATE
-	// journalTags SET content = ? WHERE id=?";
 
 	public JournalTagsDAO() {
 		connection = DBConnection.getConnection();
@@ -90,10 +67,5 @@ public class JournalTagsDAO {
 		ps.executeUpdate();
 
 	}
-
-//	public void deleteJournalTagByUser(int user) throws SQLException {
-//		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALTAG_BY_USER_QUERY);
-//		ps.setInt(1, user);
-//		ps.executeUpdate();
 
 }

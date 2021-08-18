@@ -24,6 +24,7 @@ public class UserDAO {
 		connection = DBConnection.getConnection();
 	}
 
+//Gets all users
 	public List<User> getUsers() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_ALL_USERS_QUERY).executeQuery();
 		List<User> User = new ArrayList<User>();
@@ -34,6 +35,7 @@ public class UserDAO {
 		return User;
 	}
 
+//Gets specific user by id
 	public User getUserById(int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_USER_BY_ID_QUERY);
 		ps.setInt(1, id);
@@ -42,6 +44,7 @@ public class UserDAO {
 		return populateUser(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
 	}
 
+//Creates new user
 	public void createNewUser(String firstname, String lastname, String emailaddress) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_USER_QUERY);
 		ps.setString(1, firstname);
@@ -50,6 +53,7 @@ public class UserDAO {
 		ps.executeUpdate();
 	}
 
+//Updates user
 	public void updateUser(int id, String emailaddress) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_USER_QUERY);
 		ps.setInt(1, id);
@@ -57,6 +61,7 @@ public class UserDAO {
 		ps.executeUpdate();
 	}
 
+//Deletes user (just user from user table, not journal entries and tags)
 	public void deleteUser(int id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(DELETE_USER_QUERY);
 		ps.setInt(1, id);

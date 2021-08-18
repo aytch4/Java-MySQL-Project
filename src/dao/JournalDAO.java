@@ -14,7 +14,6 @@ public class JournalDAO {
 
 	private Connection connection;
 	private JournalTagsDAO journalTagsDAO = new JournalTagsDAO();
-//	private final String GET_JOURNALS_QUERY = "SELECT * FROM journal";
 	private final String GET_JOURNAL_BY_ID_QUERY = "SELECT * FROM journal WHERE id = ?";
 	private final String CREATE_NEW_JOURNAL_QUERY = "INSERT INTO journal (title, content, user) VALUES (?,?,?)";
 	private final String DELETE_JOURNAL_BY_ID_QUERY = "DELETE FROM journal WHERE id =?";
@@ -26,13 +25,14 @@ public class JournalDAO {
 	private final String GET_JOURNALS_BY_USER_QUERY = "SELECT * FROM journal WHERE user = ?";
 	private final String DELETE_JOURNALS_BY_USER_QUERY = "delete journal,journal_tags from journal_tags inner join journal on journal_tags.journal = journal.id where journal.user = ?";
 
+	public JournalDAO() {
+		connection = DBConnection.getConnection();
+	}
+
 	public List<Journal> getJournalEntriesByJournalTag(int tag) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_JOURNALENTRIES_BY_TAGID_QUERY);
 		ps.setInt(1, tag);
 		ResultSet rs = ps.executeQuery();
-
-		// ResultSet rs =
-		// psconnection.prepareStatement(GET_JOURNALENTRIES_BY_TAGID_QUERY).executeQuery();
 		List<Journal> journalsByTag = new ArrayList<Journal>();
 
 		while (rs.next()) {
@@ -41,21 +41,6 @@ public class JournalDAO {
 		}
 		return journalsByTag;
 	}
-
-	public JournalDAO() {
-		connection = DBConnection.getConnection();
-	}
-//going to screw the whole thing up- reset to this if I do
-//	public List<Journal> getJournals() throws SQLException {
-//		ResultSet rs = connection.prepareStatement(GET_JOURNALS_QUERY).executeQuery();
-//		List<Journal> journals = new ArrayList<Journal>();
-//
-//		while (rs.next()) {
-//			journals.add(populateJournal(rs.getInt(1), rs.getDate(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
-//		}
-//		return journals;
-//
-//	}
 
 	public List<Journal> getJournalsByUser(int user) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_JOURNALS_BY_USER_QUERY);
@@ -89,7 +74,6 @@ public class JournalDAO {
 		return journalId;
 	}
 
-//MESSING
 	public List<Integer> readGetJournalIdsByUser(int user) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_JOURNAL_IDS_BY_USER_QUERY);
 		ps.setInt(1, user);
@@ -110,8 +94,6 @@ public class JournalDAO {
 		ps.setString(2, content);
 		ps.setInt(3, id);
 		ps.executeUpdate();
-		// need to retrieve tag id from database
-		// journalTagsDAO.getJournalTagByJournalId(journalId, journalTagId);
 		journalTagsDAO.createNewJournalTag(readGetJournalId(entryName), journalTagId);
 	}
 
@@ -121,7 +103,6 @@ public class JournalDAO {
 		ps.setInt(1, id);
 		ps.executeUpdate();
 	}
-//MESSING WITH IT HERE
 
 	public void deleteJournalsByIds(List<Integer> ids) throws SQLException {
 		for (int id : ids) {
@@ -133,10 +114,6 @@ public class JournalDAO {
 	}
 
 	public void deleteJournalByUser(int user) throws SQLException {
-//MESSING
-//		deleteJournalsByIds(readGetJournalIdsByUser(user));
-//
-//		journalTagsDAO.deleteJournalTagByUser(user);
 		PreparedStatement ps = connection.prepareStatement(DELETE_JOURNALS_BY_USER_QUERY);
 		ps.setInt(1, user);
 		ps.executeUpdate();
@@ -152,5 +129,4 @@ public class JournalDAO {
 	private Journal populateJournal(int id, Date date, String title, String content, int userId) throws SQLException {
 		return new Journal(id, date, title, content, userId);
 	}
-
 }
